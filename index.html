@@ -15,17 +15,11 @@
 
 	<script type="text/javascript">
 
-
-		$("#container").ajaxUpload({
+		var upload = AjaxUpload({
+			container : "container",
 			uploadUrl : "upload.php",
 			maxFileSize : 100
-		});
-
-//		var upload = new AjaxUpload({
-//			inputId : 'file_upload',
-//			maxFileSize : 0,
-//			uploadUrl : 'upload.php'
-//		});
+		})
 
 	</script>
 </body>
