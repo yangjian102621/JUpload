@@ -19,6 +19,7 @@ var AjaxUpload = function(options) {
 		maxFileSize : 2048,    //上传文件大小
 		extAllow : "jpg|png|gif|jpeg",
 		extRefuse : "exe|txt",
+		callback : function(imageList) {},
 		onSuccess : function(e) {},
 		onError : function(e) {},
 		onLoadStart : function(e) {},
@@ -33,96 +34,98 @@ var AjaxUpload = function(options) {
 
 	options = $.extend(defaults, options);
 
-	var o = {};
-	o.fileList = new Array();   //等待上传的文件列表
-	o.uploadIndex = 0;  //当前上正在上传的文件的索引
+	var toUploadList = new Array();   //等待上传的文件列表
+	var currentUploadIndex = 0;  //当前上正在上传的文件的索引
+	var uploadSuccessList = new Array(); //上传成功的文件列表
 
 	//create frame elements(创建框架元素)
-	var frameElements =
-		'<div class="jupload-container" id="jupload-container">'
-		+ '		<div class="jupload-panel" id="jupload-panel">'
-		+ '         <div class="image-list-box" id="image-list-box">'
-		+ '         </div>'
-		+ '     </div>'
-		+ '     <div class="jupload-btn-box" id="jupload-btn-box">'
-		+ '         <button class="btn-upload"></button>'
-		+ '         <button class="btn-add-file"></button>'
-		+ '     </div>'
-		+ '</div>';
+	function createElements() {
+		var frameElements =
+			'<div class="jupload-container" id="jupload-container">'
+			+ '		<div class="jupload-panel" id="jupload-panel">'
+			+ '         <div class="image-list-box" id="image-list-box">'
+			+ '         </div>'
+			+ '     </div>'
+			+ '     <div class="jupload-btn-box" id="jupload-btn-box">'
+			+ '         <button class="btn-upload"></button>'
+			+ '         <button class="btn-add-file"></button>'
+			+ '     </div>'
+			+ '</div>';
 
-	$('#'+options.container).append(frameElements);
+		$('#'+options.container).append(frameElements);
 
-	//append initialize upload button(初始化开始上传按钮)
-	var initUploadBtn = $('<div class="init-add-file-btn" id="init-add-file-btn"></div>');
-	var uploadInput = $('<input type="file" class="input-select-file" id="input-select-file" multiple="true">');
-	var addMoreImage = $('<div class="addmore-box" id="addmore-box"><span class="addmore-btn"></span></div>');
-	addMoreImage.on("click", function() {
-		$("#input-select-file").trigger("click");
-	});
-
-	$("#jupload-btn-box"+" .btn-add-file").on("click", function() {
-		console.log("close the window.");
-	});
-
-	//bind start upload event(绑定开始上传事件)
-	$("#jupload-btn-box"+" .btn-upload").on("click", function() {
-		if (o.fileList.length == 0 ) {
-			alert("请至少添加一个文件！");
-			return false;
-		}
-		uploadFile(o.fileList.shift());
-	});
-
-	uploadInput.on("change", function() {
-
-		//append add more image button(创建继续添加按钮)
-		if ( $("#image-list-box").find(".addmore-box").length == 0 ) {
-			$("#image-list-box").append(addMoreImage);
-		} else {
-			addMoreImage.show();
-		}
-
-		//add files to the filelist, and create file icon(添加文件到待上传文件列表)
-		var list = uploadInput[0].files;
-		var toUploadNum = $(".img-container").length;
-		for ( var i = toUploadNum; i < toUploadNum+list.length; i++ ) {
-
-			var image = $('<div class="img-container" id="img-comtainer-'+i+'">'
-				+ '    <div class="image">'
-				+ '       <img src="" width="150px;" border="0">'
-				+ '       <div class="mask">等待上传……</div>'
-				+ '     </div>'
-				+ '     <div class="file-info">'
-				+ '         <div class="progress"><span class="progress-bar" id="upload-progress-bar-'+i+'"></span></div>'
-				+ '         <div class="file-size">'+formatFileSize(list[i-toUploadNum].size)+'</div>'
-				+ '     </div>'
-				+ '     <span class="remove" index="'+i+'"></span>'
-				+ '     <span class="success"></span>'
-				+ '</div>');
-
-			//bind ondelele event(绑定删除文件事件)
-			image.find(".remove").on("click", function() {
-
-				onDelete(this);
-
-			});
-			$("#addmore-box").before(image);
-			o.fileList.push(list[i-toUploadNum]);
-		}
-
-		$("#init-add-file-btn").hide();
-	});
-
-	initUploadBtn.append(uploadInput);
-	$("#jupload-panel").append(initUploadBtn);
-
-	//adjust the upload button's position(调整“选择文件”按钮位置)
-	setTimeout(function() {
-		initUploadBtn.css({
-			top : ($("#jupload-panel").height() - initUploadBtn.height()) / 2 + "px",
-			left : ($("#jupload-panel").width() - initUploadBtn.width()) / 2 + "px"
+		//append initialize upload button(初始化开始上传按钮)
+		var initUploadBtn = $('<div class="init-add-file-btn" id="init-add-file-btn"></div>');
+		var uploadInput = $('<input type="file" class="input-select-file" id="input-select-file" multiple="true">');
+		var addMoreImage = $('<div class="addmore-box" id="addmore-box"><span class="addmore-btn"></span></div>');
+		addMoreImage.on("click", function() {
+			$("#input-select-file").trigger("click");
 		});
-	}, 200);
+
+		$("#jupload-btn-box"+" .btn-add-file").on("click", function() {
+			console.log("close the window.");
+		});
+
+		//bind start upload event(绑定开始上传事件)
+		$("#jupload-btn-box"+" .btn-upload").on("click", function() {
+			if (toUploadList.length == 0 ) {
+				alert("请至少添加一个文件！");
+				return false;
+			}
+			uploadFile(toUploadList.shift());
+		});
+
+		uploadInput.on("change", function() {
+
+			//append add more image button(创建继续添加按钮)
+			if ( $("#image-list-box").find(".addmore-box").length == 0 ) {
+				$("#image-list-box").append(addMoreImage);
+			} else {
+				addMoreImage.show();
+			}
+
+			//add files to the filelist, and create file icon(添加文件到待上传文件列表)
+			var list = uploadInput[0].files;
+			var addedNum = $(".img-container").length;   //已经添加的文件数目
+			for ( var i = addedNum; i < addedNum+list.length; i++ ) {
+
+				var image = $('<div class="img-container" id="img-comtainer-'+i+'">'
+					+ '    <div class="image">'
+					+ '       <img src="'+window.URL.createObjectURL(list[i-addedNum])+'" width="150px;" border="0">'
+					+ '       <div class="mask">等待上传……</div>'
+					+ '     </div>'
+					+ '     <div class="file-info">'
+					+ '         <div class="progress"><span class="progress-bar" id="upload-progress-bar-'+i+'"></span></div>'
+					+ '         <div class="file-size">'+formatFileSize(list[i-addedNum].size)+'</div>'
+					+ '     </div>'
+					+ '     <span class="remove" index="'+i+'"></span>'
+					+ '     <span class="success"></span>'
+					+ '</div>');
+
+				//bind ondelele event(绑定删除文件事件)
+				image.find(".remove").on("click", function() {
+
+					onDelete(this);
+
+				});
+				$("#addmore-box").before(image);
+				toUploadList.push(list[i-addedNum]);
+			}
+
+			$("#init-add-file-btn").hide();
+		});
+
+		initUploadBtn.append(uploadInput);
+		$("#jupload-panel").append(initUploadBtn);
+
+		//adjust the upload button's position(调整“选择文件”按钮位置)
+		setTimeout(function() {
+			initUploadBtn.css({
+				top : ($("#jupload-panel").height() - initUploadBtn.height()) / 2 + "px",
+				left : ($("#jupload-panel").width() - initUploadBtn.width()) / 2 + "px"
+			});
+		}, 200);
+	}
 
 	//delete file callback(删除文件回调)
 	function onDelete(obj) {
@@ -130,7 +133,7 @@ var AjaxUpload = function(options) {
 		$(obj).parent().remove();
 		//remove file from the filelist that to be uploaded.(从待上传队列中删除文件)
 		var index = $(obj).attr("index");
-		o.fileList.splice(index, 1);
+		toUploadList.splice(index, 1);
 		if ( $(".img-container").length == 0 ) {
 			$("#init-add-file-btn").show();
 			addMoreImage.hide();
@@ -139,7 +142,7 @@ var AjaxUpload = function(options) {
 		$("#image-list-box").find(".remove").each(function(index, element) {
 			$(element).attr("index", index);
 		});
-		//console.log(o.fileList.length);
+		//console.log(toUploadList.length);
 	}
 
 	//format file size(格式化文件大小)
@@ -157,7 +160,7 @@ var AjaxUpload = function(options) {
 	function uploadFile(file) {
 
 		if ( !fileCheckHandler(file) ) {
-			o.uploadIndex++;
+			currentUploadIndex++;
 			uploadNextFile();   //skip the file and upload the next file
 			return;
 		}
@@ -171,12 +174,12 @@ var AjaxUpload = function(options) {
 			if ( options.dataType == "json" ) {
 				var data = $.parseJSON(e.explicitOriginalTarget.responseText);
 				if ( data.code == 1 ) {
-					$("#img-comtainer-"+ o.uploadIndex).find("img").attr("src", data.message);
-					$("#img-comtainer-"+ o.uploadIndex).find(".remove").hide().next().show();
-					$("#img-comtainer-"+ o.uploadIndex).find(".mask").hide();
+					$("#img-comtainer-"+ currentUploadIndex).find("img").attr("src", data.message);
+					$("#img-comtainer-"+ currentUploadIndex).find(".remove").hide().next().show();
+					$("#img-comtainer-"+ currentUploadIndex).find(".mask").hide();
 				} else {
 					var message = data.message || "上传失败！";
-					$("#img-comtainer-"+ o.uploadIndex).find(".mask").html(message).addClass("error");
+					$("#img-comtainer-"+ currentUploadIndex).find(".mask").html(message).addClass("error");
 				}
 			}
 
@@ -189,7 +192,7 @@ var AjaxUpload = function(options) {
 
 			console.log("loadend");
 			//upload the next file
-			o.uploadIndex++;
+			currentUploadIndex++;
 			uploadNextFile();
 
 		}, false);
@@ -247,31 +250,32 @@ var AjaxUpload = function(options) {
 
 	//显示错误信息
 	function __error__(message) {
-		$("#img-comtainer-"+ o.uploadIndex).find(".mask").html(message).addClass("error");
+		$("#img-comtainer-"+ currentUploadIndex).find(".mask").html(message).addClass("error");
 	}
 
 	//upload next file(上传下一个文件)
 	function uploadNextFile() {
 
-		if ( o.fileList.length ) {
-			var nextFile = o.fileList.shift();
+		if ( toUploadList.length ) {
+			var nextFile = toUploadList.shift();
 			uploadFile(nextFile);
 		} else {
 			//all file upload completed
 			options.onComplete();
 			//initalize the data
-			o.uploadIndex = 0;
-			o.fileList = new Array();
+			currentUploadIndex = 0;
+			toUploadList = new Array();
 		}
 	}
 
 	// progress handler(文件上传进度控制)
 	function updateProgress(e) {
-		//console.log(o.uploadIndex);
+		//console.log(currentUploadIndex);
 		if ( e.lengthComputable ) {
-			$("#upload-progress-bar-"+ o.uploadIndex).css({"width" : (e.loaded/e.total)*100+'%'});
+			$("#upload-progress-bar-"+ currentUploadIndex).css({"width" : (e.loaded/e.total)*100+'%'});
 		}
 	}
 
+	createElements();
 
-}
+};
