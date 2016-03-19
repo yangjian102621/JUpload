@@ -11,15 +11,20 @@
 
 <body>
 
-	<div id="container"></div>
+	<button id="button">上传图片</button>
 
 	<script type="text/javascript">
 
-		var upload = AjaxUpload({
-			container : "container",
-			uploadUrl : "upload.php",
-			maxFileSize : 100
-		})
+		$('#button').on('click', function() {
+			new AjaxUpload({
+				uploadUrl : "upload.php",
+				maxFileSize : 1024,
+				maxFileNum : 20,
+				callback : function(data) {
+					console.log(data);
+				}
+			});
+		});
 
 	</script>
 </body>

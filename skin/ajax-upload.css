@@ -1,11 +1,10 @@
 .jupload-container {
-    margin: auto;
-    min-width: 800px;
-    max-width: 1135px;
+    width: 990px;
     padding:10px;
     background-color: #ffffff;
     border:2px solid #d1d1d1;
     border-radius: 6px;
+    position: absolute;
 }
 .jupload-container * {
     margin: 0; padding: 0;
@@ -16,8 +15,10 @@
     position: relative;
 }
 .image-list-box {
+    height: 318px;
     zoom: 1;
-    overflow: hidden;
+    overflow-x:hidden;
+    overflow-y: auto;
 }
 
 /* image list style */
@@ -41,6 +42,7 @@
     left:0;
     top:0;
     background: #F1F1F1;
+    opacity: 0.8;
     width: 110px;
     height: 110px;
     padding: 10px 30px 10px 10px;
