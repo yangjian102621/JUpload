@@ -203,7 +203,8 @@ var AjaxUpload = function(options) {
 		xhr.addEventListener('load',function(e) {
 
 			if ( options.dataType == "json" ) {
-				var data = $.parseJSON(e.explicitOriginalTarget.responseText);
+				//console.log(e);
+				var data = $.parseJSON(e.target.responseText);
 				if ( data.code == 0 ) {
 					uploadSuccessList.push(data.message);   //添加文件到上传文件列表
 					//$("#img-comtainer-"+ currentUploadIndex).find("img").attr("src", data.message);
@@ -273,7 +274,7 @@ var AjaxUpload = function(options) {
 
 		var position = filename.lastIndexOf('.')
 		if ( position != -1 ) {
-			return filename.substr(position+1);
+			return filename.substr(position+1).toLowerCase();
 		}
 		return false;
 	}
