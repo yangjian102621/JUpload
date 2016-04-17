@@ -7,7 +7,7 @@
  */
 
 //import css
-$('head').append('<link type="text/css" rel="stylesheet" href="skin/ajax-upload.css">');
+$('head').append('<link type="text/css" rel="stylesheet" href="dist/skin/ajax-upload.min.css">');
 var AjaxUpload = function(options) {
 
 	//判断浏览器是否支持html5
