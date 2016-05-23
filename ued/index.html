@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/upload.css" />
+</head>
+<body>
+<div class="uedbody">
+	<div class="ued_title">
+		<div class="uedbar">
+				<span>
+					多图上传
+				</span>
+		</div>
+		<div class="close_but icon" title="关闭对话框"></div>
+	</div>
+
+	<div class="wrapper">
+		<div id="wra_head" class="wra_head">
+			<span class="tab focus">本地上传</span>
+			<span class="tab">在线管理</span>
+			<span class="tab">图片搜索</span>
+
+		</div>
+		<div class="wra_body">
+			<!--本地上传start-->
+			<div class="upload-panel">
+				<div class="wra_pla">
+					<div class="upload-image-placeholder">
+						<div class="btn btn-primary image-select">点击选择图片</div>
+						<input type="file" name="src" class="webuploader-element-invisible" multiple="multiple">
+					</div>
+				</div>
+
+				<!--点击图片上传状态-->
+				<div class="imggo" style="display: none;">
+					<div class="wra_bar">
+						<div class="info fl">选中 {img.num} 张图片，共 {img.size} K</div>
+						<div class="fr">
+							<div class="add-image">继续添加</div>
+							<div class="upload-image">开始上传</div>
+						</div>
+
+
+					</div>
+					<ul class="filelist">
+						<li>
+							<p class="title"></p>
+							<p class="imgWrap">
+								<img src="../style/img/dayi.jpg" />
+
+							</p>
+							<span class="success"></span>
+							<div class="file-panel clearfix" style="display: none;">
+								<span class="cancel">删除</span>
+								<span class="rotateRight">向右旋转</span>
+								<span class="rotateLeft">向左旋转</span>
+
+							</div>
+						</li>
+						<li class="file-add">
+
+						</li>
+
+					</ul>
+					<!---点击图片上传end-->
+				</div>
+
+
+			</div>
+			<!--*本地上传end*-->
+
+			<!--在线管理start-->
+			<div class="online" style="display: none;">
+				<div class="imagelist">
+					<ul class="list">
+						<li>
+							<img style="margin-left: -33px;" src="../style/img/index.png" height="113" width="179">
+							<span class="ic"></span>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+			<!--在线管理end-->
+
+			<!--图片搜索start-->
+			<div class="searchbox" style="display: none;">
+				<input class="searTxt" type="text" placeholder="请输入搜索关键词" />
+				<select title="图片类型" class="searchType">
+					<option value="&amp;s=4&amp;z=0">新闻</option>
+					<option value="&amp;s=1&amp;z=19">壁纸</option>
+					<option value="&amp;s=2&amp;z=0">表情</option>
+					<option value="&amp;s=3&amp;z=0">头像</option>
+				</select>
+				<input value="清空搜索" class="btn searchRese" type="button" />
+				<input value="百度一下" class="btn searchBtn" type="button" />
+			</div>
+			<!--图片搜索end-->
+
+		</div>
+
+
+		<!--底部按钮-->
+		<div class="wra_btn fr">
+				<span class="wra_btn_Y icon">
+					确认
+				</span>
+				<span class="wra_btn_N icon">
+					取消
+				</span>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/index.js"></script>
+
+</body>
+</html>

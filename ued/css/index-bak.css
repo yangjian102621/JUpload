@@ -1,9 +1,8 @@
 @charset "utf-8";
 /* reset
 ================================================================================================= */
-body{height:100%;margin:0px;padding:0px; border:0px; font-size:12px; font-family:"微软雅黑";_behavior:url("csshover.htc"); color:#333; -webkit-text-size-adjust:none;width:100%;background-color:#fff;}
-*html{background-image:url(about:blank); background-attachment:fixed;} 
-body, div, dl, dt, dd, ul, li,ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote,p{margin:0; padding:0;}  
+body{height:100%;margin:0px;padding:0px; border:0px; font-size:12px; font-family:"微软雅黑"; color:#333; -webkit-text-size-adjust:none;width:100%;background-color:#fff;}
+body, div, dl, dt, dd, ul, li,ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote,p{margin:0; padding:0;}
 h1,h2,h3,h4,h5,h6 {font-weight:normal;}
 li{list-style-type:none;}
 ol,ul,dl{list-style:none;}
@@ -30,8 +29,6 @@ input::-moz-focus-inner{ border: 0;padding: 0;}/*针对Firefox*/
 background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
 */
 .icon{background: url(img/icons-all.gif) no-repeat center;}
-
-
 .uedbody{
 	width:652px;
 	height:469px;
@@ -167,7 +164,7 @@ background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
 .wra_body .filelist li{
 	width: 113px;
 	height: 113px;
-	
+
 	text-align: center;
 	margin: 9px 0px 0px 9px;
 	position: relative;

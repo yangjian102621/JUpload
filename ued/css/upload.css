@@ -1,0 +1,386 @@
+@charset "UTF-8";
+/************************* reset css start ***********************************/
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  font-size: 12px;
+  font-family: "微软雅黑";
+  color: #333;
+  -webkit-text-size-adjust: none;
+  width: 100%;
+  background-color: #fff; }
+
+body, div, dl, dt, dd, ul, li, ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote, p {
+  margin: 0;
+  padding: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal; }
+
+li {
+  list-style-type: none; }
+
+ol, ul, dl {
+  list-style: none; }
+
+em {
+  font-style: normal; }
+
+img {
+  border: none;
+  vertical-align: middle; }
+
+select, label, input {
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+  outline: medium;
+  font-size: 12px; }
+
+textarea {
+  resize: none;
+  line-height: 18px; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cell: show; }
+
+a {
+  text-decoration: none;
+  color: #333;
+  outline: none;
+  cursor: pointer; }
+
+a:hover {
+  cursor: pointer;
+  blr: expression(this.onFocus=this.blur()); }
+
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/*针对Firefox*/
+/***************************** reset css end ***********************************/
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.clearfix {
+  *zoom: 1;
+  /*ie6,7*/ }
+
+.fr {
+  float: right; }
+
+.fl {
+  float: left; }
+
+.uedbody {
+  width: 652px;
+  height: 469px;
+  position: relative;
+  padding: 2px 0px 0px 2px;
+  background-color: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  margin: 0px auto; }
+  .uedbody .ued_title {
+    height: 26px;
+    border-bottom: 1px solid #C6C6C6;
+    background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
+    position: relative;
+    cursor: move; }
+    .uedbody .ued_title .icon {
+      background: url(img/icons-all.gif) no-repeat center; }
+    .uedbody .ued_title .uedbar span {
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 26px;
+      padding-left: 5px; }
+    .uedbody .ued_title .close_but {
+      height: 20px;
+      width: 20px;
+      cursor: pointer;
+      background-position: 0px -59px;
+      position: absolute;
+      right: 5px;
+      top: 3px; }
+      .uedbody .ued_title .close_but:hover {
+        background-position: 0px -89px; }
+  .uedbody .wrapper {
+    width: 630px;
+    height: 380px;
+    margin: 0px auto;
+    padding: 10px;
+    position: relative;
+    font-family: sans-serif; }
+    .uedbody .wrapper .btn {
+      display: inline-block;
+      margin-bottom: 0px;
+      margin-right: 5px;
+      padding: 4px 10px;
+      font-weight: 400;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      font-size: 14px;
+      border-radius: 3px;
+      -moz-user-select: none;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
+    .uedbody .wrapper .btn-default {
+      border: 1px solid #CFCFCF;
+      color: #565656;
+      background: #ffffff; }
+      .uedbody .wrapper .btn-default:hover {
+        background: #f0f0f0; }
+    .uedbody .wrapper .btn-primary {
+      background: #00b7ee;
+      color: #ffffff; }
+      .uedbody .wrapper .btn-primary:hover {
+        background: #00a2d4; }
+    .uedbody .wrapper .wra_head {
+      z-index: 10; }
+      .uedbody .wrapper .wra_head span {
+        display: inline-block;
+        padding: 0px 5px;
+        height: 30px;
+        border: 1px solid #CCC;
+        background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10; }
+      .uedbody .wrapper .wra_head span.focus {
+        height: 31px;
+        border-bottom: medium none;
+        background: #FFF none repeat scroll 0% 0%; }
+    .uedbody .wrapper .wra_body {
+      width: 100%;
+      height: 346px;
+      clear: both;
+      margin: 0px auto;
+      border: 1px solid #CCC;
+      display: block;
+      clip: auto;
+      overflow: hidden;
+      top: -1px;
+      position: relative; }
+      .uedbody .wrapper .wra_body .upload-panel .wra_pla {
+        zoom: 1;
+        overflow: hidden;
+        text-align: center; }
+        .uedbody .wrapper .wra_body .upload-panel .wra_pla .upload-image-placeholder {
+          margin: 10px;
+          border: 2px dashed #e6e6e6;
+          height: 172px;
+          padding-top: 150px;
+          text-align: center;
+          background: url(img/image.png) center 70px no-repeat;
+          position: relative;
+          top: 0; }
+          .uedbody .wrapper .wra_body .upload-panel .wra_pla .upload-image-placeholder .webuploader-element-invisible {
+            opacity: 0;
+            width: 0;
+            height: 0; }
+          .uedbody .wrapper .wra_body .upload-panel .wra_pla .upload-image-placeholder .image-select {
+            padding: 10px 30px;
+            cursor: pointer; }
+      .uedbody .wrapper .wra_body .upload-panel .wra_bar {
+        border: 1px solid red;
+        height: 45px;
+        border-bottom: 1px solid #DADADA;
+        margin: 0px 10px;
+        padding: 0px;
+        line-height: 45px;
+        vertical-align: middle;
+        position: relative;
+        zoom: 1;
+        overflow: hidden; }
+        .uedbody .wrapper .wra_body .upload-panel .wra_bar .info {
+          font-size: 14px;
+          color: #666;
+          line-height: 45px; }
+        .uedbody .wrapper .wra_body .upload-panel .wra_bar .add-image {
+          background: #FFF none repeat scroll 0% 0%; }
+        .uedbody .wrapper .wra_body .upload-panel .wra_bar .upload-image {
+          background: #00B7EE none repeat scroll 0% 0%;
+          color: #fff; }
+      .uedbody .wrapper .wra_body .upload-panel .filelist {
+        list-style: outside none none;
+        margin: 0px;
+        padding: 0px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        height: 300px; }
+        .uedbody .wrapper .wra_body .upload-panel .filelist li {
+          width: 113px;
+          height: 113px;
+          text-align: center;
+          margin: 9px 0px 0px 9px;
+          position: relative;
+          display: block;
+          float: left;
+          overflow: hidden;
+          font-size: 12px; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li p.title {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            top: 5px;
+            text-indent: 5px;
+            text-align: left; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li p.imgWrap {
+            position: relative;
+            z-index: 2;
+            line-height: 113px;
+            vertical-align: middle;
+            overflow: hidden;
+            width: 113px;
+            height: 113px;
+            transform-origin: 50% 50% 0px;
+            transition: all 200ms ease-out 0s; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li p.img {
+            width: 100%; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li .success {
+            background: url("img/success.png") no-repeat right;
+            display: block;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            height: 40px;
+            width: 100%;
+            z-index: 200; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            overflow: hidden;
+            z-index: 300;
+            display: none; }
+            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span {
+              width: 24px;
+              height: 24px;
+              display: inline;
+              float: right;
+              text-indent: -9999px;
+              overflow: hidden;
+              margin: 5px 1px 1px;
+              cursor: pointer;
+              -moz-user-select: none;
+              background: url(img/icons.png) no-repeat center; }
+            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.cancel {
+              background-position: -48px -24px; }
+              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.cancel:hover {
+                background-position: -48px -0px; }
+            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateRight {
+              background-position: -24px -24px;
+              display: none; }
+              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateRight:hover {
+                background-position: -24px -0px; }
+            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateLeft {
+              background-position: 0px -24px;
+              display: none; }
+              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateLeft:hover {
+                background-position: 0px 0px; }
+          .uedbody .wrapper .wra_body .upload-panel .filelist li .file-add {
+            width: 113px;
+            height: 113px;
+            background: transparent url(img/image.png) no-repeat scroll center 12px;
+            border: 1px solid #EEE;
+            cursor: pointer; }
+      .uedbody .wrapper .wra_body .online {
+        width: 100%;
+        height: 336px;
+        padding: 10px 0px 0px; }
+        .uedbody .wrapper .wra_body .online .imagelist {
+          width: 100%;
+          height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          position: relative; }
+          .uedbody .wrapper .wra_body .online .imagelist .list li {
+            float: left;
+            display: block;
+            list-style: outside none none;
+            padding: 0px;
+            width: 113px;
+            height: 113px;
+            margin: 0px 0px 9px 9px;
+            background-color: #EEE;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative; }
+            .uedbody .wrapper .wra_body .online .imagelist .list li img {
+              cursor: pointer; }
+            .uedbody .wrapper .wra_body .online .imagelist .list li .ic {
+              cursor: pointer;
+              width: 113px;
+              height: 113px;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              z-index: 2;
+              border: 0px none;
+              display: inline-block;
+              background: url("img/success.png") no-repeat 75px 75px; }
+              .uedbody .wrapper .wra_body .online .imagelist .list li .ic:hover {
+                width: 107px;
+                height: 107px;
+                border: 3px solid #1094FA;
+                background-position: 72px 72px; }
+      .uedbody .wrapper .wra_body .searchbox {
+        width: 100%;
+        height: 30px;
+        margin: 10px 0px 5px;
+        padding: 0px; }
+        .uedbody .wrapper .wra_body .searchbox .searTxt {
+          margin-left: 5px;
+          background: #FFF none repeat scroll 0% 0%;
+          width: 300px;
+          height: 21px;
+          line-height: 21px;
+          float: left;
+          padding: 3px 6px;
+          font-size: 14px;
+          line-height: 1.42857;
+          border: 1px solid #CCC;
+          border-radius: 4px;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+          transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s; }
+        .uedbody .wrapper .wra_body .searchbox .searchType {
+          width: 65px;
+          height: 28px;
+          padding: 0px;
+          line-height: 28px;
+          border: 1px solid #D7D7D7;
+          border-radius: 0px;
+          vertical-align: top;
+          margin-left: 5px;
+          float: left;
+          font-size: 16px; }
+        .uedbody .wrapper .wra_body .searchbox .searchBtn {
+          color: #FFF;
+          border-color: #285E8E;
+          background-color: #3B97D7; }
+        .uedbody .wrapper .wra_body .searchbox .searchRese {
+          color: #333;
+          border-color: #CCC;
+          background-color: #FFF; }
+
+/*# sourceMappingURL=upload.css.map */

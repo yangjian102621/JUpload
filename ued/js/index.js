@@ -1,5 +1,4 @@
 
-	//index---------tab切换
 	$(function(){
 		//tab切换
 		function tabs(){
@@ -10,7 +9,9 @@
 		}
 		tabs();
 
-
+		$(".wrapper").find(".image-select").on("click", function() {
+			$(".wrapper").find(".webuploader-element-invisible").trigger("click");
+		})
 		$('#wra_body').find('li#anma').on('mouseover',function(){
 			$(this).find('.file-panel').css({"display":"block"});
 			$(this).find('.file-panel').stop().animate({
