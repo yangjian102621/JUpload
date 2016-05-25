@@ -42,6 +42,7 @@
 		options = $.extend({
 			src : "src",
 			upload_url : null,
+			list_url : null,
 			data_type : "json",
 			max_filesize : 2048,    //unit:KB
 			max_filenum : 20,
@@ -67,6 +68,7 @@
 		o.addedFileNumber = 0; //the numbers of files that has added
 		o.totalFilesize = 0; //total file size
 		o.uploadLock = false; //upload thread lock
+		o.page = 1; //image list page
 
 		//close the dialog
 		o.close = function () {
@@ -349,7 +351,38 @@
 
 		//load files from server
 		function loadFiles() {
-			console.log("xxxxxxxxxxxx");
+			$.get(options.list_url, {
+				page : o.page
+			}, function(res) {
+				o.page++;
+				if ( res.code == "0" ) {
+					appendFiles(res.data);
+				}
+
+			}, "json");
+		}
+
+		//append files to the image list box
+		function appendFiles(data) {
+
+			$.each(data, function(idx, item) {
+				var builder = new StringBuilder();
+				builder.append('<li><img src="'+item+'" index="'+idx+'" border="0">');
+				builder.append('<span class="ic"></span></li>');
+				G(".imagelist .list").append(builder.toString());
+			});
+
+			//bind select event
+			G(".imagelist .list .ic").on("click", function() {
+				if ( $(this).hasClass("selected") ) {
+					$(this).removeClass("selected");
+				} else {
+					$(this).addClass("selected");
+				}
+			});
+
+			G(".imagelist .list img").imageCrop(113, 113);
+
 		}
 
 		//initialize dialog
