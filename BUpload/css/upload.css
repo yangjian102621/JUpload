@@ -83,7 +83,6 @@ input::-moz-focus-inner {
 
 .uedbody {
   width: 652px;
-  height: 469px;
   position: relative;
   padding: 2px 0px 0px 2px;
   background-color: #FFF;
@@ -95,17 +94,17 @@ input::-moz-focus-inner {
   .uedbody .ued_title {
     height: 26px;
     border-bottom: 1px solid #C6C6C6;
-    background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
+    background: transparent url("images/dialog-title-bg.png") repeat-x scroll 0% 0%;
     position: relative;
     cursor: move; }
     .uedbody .ued_title .icon {
-      background: url(img/icons-all.gif) no-repeat center; }
+      background: url("images/icons-all.gif") no-repeat center; }
     .uedbody .ued_title .uedbar span {
       font-weight: bold;
       font-size: 12px;
       line-height: 26px;
       padding-left: 5px; }
-    .uedbody .ued_title .close_but {
+    .uedbody .ued_title .close_btn {
       height: 20px;
       width: 20px;
       cursor: pointer;
@@ -113,8 +112,39 @@ input::-moz-focus-inner {
       position: absolute;
       right: 5px;
       top: 3px; }
-      .uedbody .ued_title .close_but:hover {
+      .uedbody .ued_title .close_btn:hover {
         background-position: 0px -89px; }
+  .uedbody .btn {
+    display: inline-block;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    padding: 4px 10px;
+    font-weight: 400;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 14px;
+    border-radius: 3px;
+    -moz-user-select: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    padding: 5px 14px; }
+  .uedbody .btn-default {
+    border: 1px solid #CFCFCF;
+    color: #565656;
+    background: #ffffff; }
+    .uedbody .btn-default:hover {
+      background: #f0f0f0; }
+  .uedbody .btn-primary {
+    background: #00b7ee;
+    color: #ffffff; }
+    .uedbody .btn-primary:hover {
+      background: #00a2d4; }
+  .uedbody .btn.disabled {
+    cursor: not-allowed;
+    opacity: .65; }
+    .uedbody .btn.disabled:hover {
+      background: #00b7ee; }
   .uedbody .wrapper {
     width: 630px;
     height: 380px;
@@ -122,48 +152,23 @@ input::-moz-focus-inner {
     padding: 10px;
     position: relative;
     font-family: sans-serif; }
-    .uedbody .wrapper .btn {
-      display: inline-block;
-      margin-bottom: 0px;
-      margin-right: 5px;
-      padding: 4px 10px;
-      font-weight: 400;
+    .uedbody .wrapper .wra_head span {
+      float: left;
+      padding: 0px 5px;
+      margin-right: 3px;
+      height: 30px;
+      border: 1px solid #CCC;
+      background: transparent url("images/dialog-title-bg.png") repeat-x scroll 0% 0%;
       text-align: center;
+      line-height: 30px;
       cursor: pointer;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      font-size: 14px;
-      border-radius: 3px;
-      -moz-user-select: none;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
-    .uedbody .wrapper .btn-default {
-      border: 1px solid #CFCFCF;
-      color: #565656;
-      background: #ffffff; }
-      .uedbody .wrapper .btn-default:hover {
-        background: #f0f0f0; }
-    .uedbody .wrapper .btn-primary {
-      background: #00b7ee;
-      color: #ffffff; }
-      .uedbody .wrapper .btn-primary:hover {
-        background: #00a2d4; }
-    .uedbody .wrapper .wra_head {
-      z-index: 10; }
-      .uedbody .wrapper .wra_head span {
-        display: inline-block;
-        padding: 0px 5px;
-        height: 30px;
-        border: 1px solid #CCC;
-        background: transparent url("img/dialog-title-bg.png") repeat-x scroll 0% 0%;
-        text-align: center;
-        line-height: 30px;
-        cursor: pointer;
-        position: relative;
-        z-index: 10; }
-      .uedbody .wrapper .wra_head span.focus {
-        height: 31px;
-        border-bottom: medium none;
-        background: #FFF none repeat scroll 0% 0%; }
+      position: relative; }
+    .uedbody .wrapper .wra_head span.focus {
+      height: 31px;
+      border-bottom: medium none;
+      background: #FFF none repeat scroll 0% 0%;
+      position: relative;
+      z-index: 2; }
     .uedbody .wrapper .wra_body {
       width: 100%;
       height: 346px;
@@ -185,7 +190,7 @@ input::-moz-focus-inner {
           height: 172px;
           padding-top: 150px;
           text-align: center;
-          background: url(img/image.png) center 70px no-repeat;
+          background: url("images/image.png") center 70px no-repeat;
           position: relative;
           top: 0; }
           .uedbody .wrapper .wra_body .upload-panel .wra_pla .upload-image-placeholder .webuploader-element-invisible {
@@ -195,27 +200,19 @@ input::-moz-focus-inner {
           .uedbody .wrapper .wra_body .upload-panel .wra_pla .upload-image-placeholder .image-select {
             padding: 10px 30px;
             cursor: pointer; }
-      .uedbody .wrapper .wra_body .upload-panel .wra_bar {
-        border: 1px solid red;
-        height: 45px;
+      .uedbody .wrapper .wra_body .upload-panel .image-list-box .wra_bar {
         border-bottom: 1px solid #DADADA;
-        margin: 0px 10px;
-        padding: 0px;
-        line-height: 45px;
+        padding: 8px;
         vertical-align: middle;
         position: relative;
         zoom: 1;
         overflow: hidden; }
-        .uedbody .wrapper .wra_body .upload-panel .wra_bar .info {
+        .uedbody .wrapper .wra_body .upload-panel .image-list-box .wra_bar .info {
           font-size: 14px;
-          color: #666;
-          line-height: 45px; }
-        .uedbody .wrapper .wra_body .upload-panel .wra_bar .add-image {
-          background: #FFF none repeat scroll 0% 0%; }
-        .uedbody .wrapper .wra_body .upload-panel .wra_bar .upload-image {
-          background: #00B7EE none repeat scroll 0% 0%;
-          color: #fff; }
-      .uedbody .wrapper .wra_body .upload-panel .filelist {
+          color: #666; }
+        .uedbody .wrapper .wra_body .upload-panel .image-list-box .wra_bar .fr .btn {
+          padding: 6px 15px; }
+      .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist {
         list-style: outside none none;
         margin: 0px;
         padding: 0px;
@@ -223,91 +220,112 @@ input::-moz-focus-inner {
         overflow-y: auto;
         position: relative;
         height: 300px; }
-        .uedbody .wrapper .wra_body .upload-panel .filelist li {
+        .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li {
           width: 113px;
           height: 113px;
-          text-align: center;
           margin: 9px 0px 0px 9px;
           position: relative;
           display: block;
           float: left;
           overflow: hidden;
           font-size: 12px; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li p.title {
-            position: absolute;
-            left: 0px;
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            top: 5px;
-            text-indent: 5px;
-            text-align: left; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li p.imgWrap {
+          .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .imgWrap {
             position: relative;
-            z-index: 2;
-            line-height: 113px;
             vertical-align: middle;
+            text-align: center;
             overflow: hidden;
             width: 113px;
             height: 113px;
             transform-origin: 50% 50% 0px;
             transition: all 200ms ease-out 0s; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li p.img {
-            width: 100%; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li .success {
-            background: url("img/success.png") no-repeat right;
-            display: block;
+          .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box {
             position: absolute;
-            left: 0px;
-            bottom: 0px;
-            height: 40px;
-            width: 100%;
-            z-index: 200; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel {
-            position: absolute;
+            display: none;
             background: rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%;
             width: 100%;
             top: 0px;
             left: 0px;
-            overflow: hidden;
-            z-index: 300;
-            display: none; }
-            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span {
+            overflow: hidden; }
+            .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box span {
               width: 24px;
               height: 24px;
               display: inline;
               float: right;
               text-indent: -9999px;
               overflow: hidden;
+              background: url("images/icons.png") no-repeat;
               margin: 5px 1px 1px;
               cursor: pointer;
+              -webkit-tap-highlight-color: transparent;
+              -webkit-user-select: none;
               -moz-user-select: none;
-              background: url(img/icons.png) no-repeat center; }
-            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.cancel {
+              -ms-user-select: none;
+              user-select: none; }
+            .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .remove {
               background-position: -48px -24px; }
-              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.cancel:hover {
+              .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .remove:hover {
                 background-position: -48px -0px; }
-            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateRight {
-              background-position: -24px -24px;
-              display: none; }
-              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateRight:hover {
+            .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .rotateRight {
+              display: none;
+              background-position: -24px -24px; }
+              .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .rotateRight:hover {
                 background-position: -24px -0px; }
-            .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateLeft {
-              background-position: 0px -24px;
-              display: none; }
-              .uedbody .wrapper .wra_body .upload-panel .filelist li .file-panel span.rotateLeft:hover {
+            .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .rotateLeft {
+              display: none;
+              background-position: 0px -24px; }
+              .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .file-opt-box .rotateLeft:hover {
                 background-position: 0px 0px; }
-          .uedbody .wrapper .wra_body .upload-panel .filelist li .file-add {
-            width: 113px;
-            height: 113px;
-            background: transparent url(img/image.png) no-repeat scroll center 12px;
-            border: 1px solid #EEE;
-            cursor: pointer; }
+          .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .success {
+            background: url("images/success.png") no-repeat right;
+            position: absolute;
+            display: none;
+            left: 0px;
+            bottom: 0px;
+            height: 40px;
+            width: 100%; }
+          .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .error {
+            position: absolute;
+            display: none;
+            background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;
+            left: 0;
+            width: 100%;
+            padding: 5px 3px;
+            color: #cc0000;
+            border: 1px solid #cccccc;
+            bottom: 0; }
+          .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .progress {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            bottom: 0;
+            height: 8px;
+            overflow: hidden;
+            z-index: 50;
+            margin: 0;
+            border-radius: 0;
+            background: none;
+            -webkit-box-shadow: 0 0 0; }
+            .uedbody .wrapper .wra_body .upload-panel .image-list-box .filelist li .progress span {
+              width: 0;
+              height: 100%;
+              background: #1483d8 url("images/progress.png") repeat-x;
+              -webit-transition: width 200ms linear;
+              -moz-transition: width 200ms linear;
+              -o-transition: width 200ms linear;
+              -ms-transition: width 200ms linear;
+              transition: width 200ms linear;
+              -webkit-animation: progressmove 2s linear infinite;
+              -moz-animation: progressmove 2s linear infinite;
+              -o-animation: progressmove 2s linear infinite;
+              -ms-animation: progressmove 2s linear infinite;
+              animation: progressmove 2s linear infinite;
+              -webkit-transform: translateZ(0); }
       .uedbody .wrapper .wra_body .online {
         width: 100%;
         height: 336px;
-        padding: 10px 0px 0px; }
+        padding: 10px 0px 0px;
+        display: none; }
         .uedbody .wrapper .wra_body .online .imagelist {
           width: 100%;
           height: 100%;
@@ -328,34 +346,31 @@ input::-moz-focus-inner {
             position: relative; }
             .uedbody .wrapper .wra_body .online .imagelist .list li img {
               cursor: pointer; }
-            .uedbody .wrapper .wra_body .online .imagelist .list li .ic {
-              cursor: pointer;
-              width: 113px;
-              height: 113px;
+            .uedbody .wrapper .wra_body .online .imagelist .list li span.ic {
               position: absolute;
               top: 0px;
               left: 0px;
-              z-index: 2;
-              border: 0px none;
-              display: inline-block;
-              background: url("img/success.png") no-repeat 75px 75px; }
-              .uedbody .wrapper .wra_body .online .imagelist .list li .ic:hover {
+              cursor: pointer;
+              width: 113px;
+              height: 113px; }
+              .uedbody .wrapper .wra_body .online .imagelist .list li span.ic:hover {
                 width: 107px;
                 height: 107px;
                 border: 3px solid #1094FA;
                 background-position: 72px 72px; }
+            .uedbody .wrapper .wra_body .online .imagelist .list li span.selected {
+              background: url("images/success.png") no-repeat 75px 75px; }
       .uedbody .wrapper .wra_body .searchbox {
-        width: 100%;
-        height: 30px;
-        margin: 10px 0px 5px;
-        padding: 0px; }
+        padding: 10px 10px 10px 5px;
+        zoom: 1;
+        overflow: hidden;
+        display: none; }
         .uedbody .wrapper .wra_body .searchbox .searTxt {
           margin-left: 5px;
           background: #FFF none repeat scroll 0% 0%;
           width: 300px;
           height: 21px;
           line-height: 21px;
-          float: left;
           padding: 3px 6px;
           font-size: 14px;
           line-height: 1.42857;
@@ -372,15 +387,17 @@ input::-moz-focus-inner {
           border-radius: 0px;
           vertical-align: top;
           margin-left: 5px;
-          float: left;
           font-size: 16px; }
-        .uedbody .wrapper .wra_body .searchbox .searchBtn {
+        .uedbody .wrapper .wra_body .searchbox .search-btn-group .searchBtn {
           color: #FFF;
           border-color: #285E8E;
           background-color: #3B97D7; }
-        .uedbody .wrapper .wra_body .searchbox .searchRese {
+        .uedbody .wrapper .wra_body .searchbox .search-btn-group .searchRese {
           color: #333;
           border-color: #CCC;
           background-color: #FFF; }
+  .uedbody .wra-btn-group {
+    text-align: right;
+    padding: 10px 20px 20px 0px; }
 
 /*# sourceMappingURL=upload.css.map */

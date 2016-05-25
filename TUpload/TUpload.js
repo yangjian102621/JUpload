@@ -1,14 +1,12 @@
 /**
- * Ajax upload plugin
+ * 仿腾讯UI的HTML5上传插件
  *
  * @author      yangjian102621@163.com
  * @version     1.1
  * @since       2015.09.18
  */
 
-//import css
-$('head').append('<link type="text/css" rel="stylesheet" href="dist/skin/ajax-upload.min.css">');
-var AjaxUpload = function(options) {
+var TUpload = function(options) {
 
 	//判断浏览器是否支持html5
 	if ( !window.applicationCache )
@@ -115,7 +113,7 @@ var AjaxUpload = function(options) {
 				}
 				var image = $('<div class="img-container" id="img-comtainer-'+i+'">'
 					+ '    <div class="image">'
-					+ '       <img src="'+window.URL.createObjectURL(list[i-addedNum])+'" width="150px;" border="0">'
+					+ '       <img src="'+window.URL.createObjectURL(list[i-addedNum])+'" width="150" border="0">'
 					+ '       <div class="mask">等待上传……</div>'
 					+ '     </div>'
 					+ '     <div class="file-info">'

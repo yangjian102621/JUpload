@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="BUpload/css/upload.css" />
+</head>
+<body>
+
+<script src="BUpload/jquery.min.js"></script>
+<script src="BUpload/BUpload.js"></script>
+<script>
+	new BUpload({
+		upload_url : "upload.php",
+		list_url : "image_list.php",	//图片列表数据获取url
+		max_filesize : 1024,
+		callback : function(data) {
+			console.log(data);
+		}
+	});
+
+</script>
+</body>
+</html>

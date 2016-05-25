@@ -4,19 +4,19 @@
 	<meta charset="UTF-8">
 	<title>HTML5文件上传</title>
 
-	<!--<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>-->
-	<script src="./dist/jquery.min.js"></script>
-	<script type="text/javascript" src="dist/AjaxUpload.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="TUpload/css/upload.css" />
 </head>
 
 <body>
-
 	<button id="button">上传图片</button>
+
+	<script src="TUpload/jquery.js"></script>
+	<script type="text/javascript" src="TUpload/TUpload.min.js"></script>
 
 	<script type="text/javascript">
 
 		$('#button').on('click', function() {
-			new AjaxUpload({
+			new TUpload({
 				uploadUrl : "upload.php",
 				maxFileSize : 1024,
 				maxFileNum : 20,
