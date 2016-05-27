@@ -403,45 +403,38 @@ $fontsize:14px;
 							}
 						}
 					}
+
 				}
 
 			} //image online end
 
 			//image search start
 			.searchbox {
-				padding: 10px 10px 10px 5px;
+				width: 100%;
+				padding: 10px 0px 0px;
 				zoom: 1; overflow: hidden;
 				display: none;
 
-				.searTxt{
-					margin-left: 5px;
-					background: #FFF none repeat scroll 0% 0%;
-					width: 300px;
-					height: 21px;
-					line-height: 21px;
-					padding: 3px 6px;
-					font-size: $fontsize;
-					line-height: 1.42857;
-					border: 1px solid #CCC;
-					border-radius: 4px;
-					box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-					transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-				}
-				.searchType {
-					width: 65px;
-					height: 28px;
-					padding: 0px;
-					line-height: 28px;
-					border: 1px solid #D7D7D7;
-					border-radius: 0px;
-					vertical-align: top;
-					margin-left: 5px;
-					font-size: 16px;
-				}
+				//搜索条
+				.search-bar {
 
-				//search button group
-				.search-btn-group {
-					.searchBtn{
+					.searTxt{
+						margin-left: 5px;
+						background: #FFF none repeat scroll 0% 0%;
+						width: 300px;
+						height: 21px;
+						line-height: 21px;
+						padding: 3px 6px;
+						font-size: $fontsize;
+						line-height: 1.42857;
+						border: 1px solid #CCC;
+						border-radius: 4px;
+						box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+						transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+						margin-right:10px;
+					}
+
+					.searchBtn {
 						color: #FFF;
 						border-color: #285E8E;
 						background-color: #3B97D7;
@@ -453,7 +446,78 @@ $fontsize:14px;
 					}
 				}
 
+				.search-imagelist-box {
+					width: 100%;
+					height: 292px;
+					overflow-x: hidden;
+					overflow-y: auto;
+					position: relative;
+					margin-top:10px;
+
+					.search-list {
+						zoom:1; overflow: hidden;
+						li {
+							float: left;
+							display: block;
+							list-style: outside none none;
+							padding: 0px;
+							width: 113px;
+							height: 113px;
+							margin: 0px 0px 9px 9px;
+							background-color: #EEE;
+							overflow: hidden;
+							cursor: pointer;
+							position: relative;
+
+							img {
+								cursor: pointer;
+							}
+
+							span.ic {
+								position: absolute;
+								top: 0px;
+								left: 0px;
+								cursor: pointer;
+								width: 113px;
+								height: 113px;
+
+								&:hover {
+									width: 107px;
+									height: 107px;
+									border: 3px solid #1094FA;
+									background-position: 72px 72px;
+
+								}
+							}
+							span.selected {
+								background: url("images/success.png") no-repeat 75px 75px;
+							}
+						}
+					}
+				}
+
 			}//image search start end
+
+			.no-data {
+				line-height: 40px;
+				height: 40px;
+				font-size:$fontsize;
+				color: #999999;
+				text-align: center;
+				display: none;
+				.error {
+					color: #cc0000;
+				}
+			}
+
+			.loading-icon {
+				background:rgba(0,0,0,0.4) url("images/loader.gif") no-repeat center center;
+				position: absolute;
+				width: 100%;
+				height: 346px;
+				top:0; left: 0;
+				display: none;
+			}
 
 		}//end of wra_body
 

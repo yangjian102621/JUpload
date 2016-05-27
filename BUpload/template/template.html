@@ -61,28 +61,30 @@
 							<span class="ic <?php if ($i%2==0) {echo "selected";}?>"></span>
 						</li>
 					</ul>
+					<div class="no-data">(⊙o⊙)亲，没有多数据了。</div>
 				</div>
 			</div>
 
 			<div class="tab-panel searchbox">
-				<div class="fl">
+				<div class="search-bar">
 					<input class="searTxt" type="text" placeholder="请输入搜索关键词" />
-					<select title="图片类型" class="searchType">
-						<option value="&amp;s=4&amp;z=0">新闻</option>
-						<option value="&amp;s=1&amp;z=19">壁纸</option>
-						<option value="&amp;s=2&amp;z=0">表情</option>
-						<option value="&amp;s=3&amp;z=0">头像</option>
-					</select>
+					<input value="百度一下" class="btn btn-primary btn-search" type="button" />
+					<input value="清空搜索" class="btn btn-default btn-cancel" type="button" />
 				</div>
 
-				<div class="search-btn-group fr">
-					<input value="百度一下" class="btn btn-primary" type="button" />
-					<input value="清空搜索" class="btn btn-default" type="button" />
+				<div class="search-imagelist-box">
+					<ul class="search-list">
+						<li>
+							<img style="margin-left: -33px;" src="http://ueditor.baidu.com/server/ueditor/upload/image/10.jpg?noCache=iokuzbsf" height="113" width="179">
+							<span class="ic <?php if ($i%2==0) {echo "selected";}?>"></span>
+						</li>
+					</ul>
+					<div class="no-data">(⊙o⊙)亲，没有多数据了。</div>
 				</div>
-
 			</div>
 
-		</div>
+			<div class="loading-icon"></div>
+		</div><!-- end of wrapper -->
 
 	</div>
 

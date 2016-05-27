@@ -9,16 +9,19 @@
 
 <script src="BUpload/jquery.min.js"></script>
 <script src="BUpload/BUpload.js"></script>
+
 <script>
 	new BUpload({
 		upload_url : "upload.php",
 		list_url : "image_list.php",	//图片列表数据获取url
+		search_url : "image_search.php",	//图片搜索页面url
 		max_filesize : 1024,
+		max_filenum : 40,
 		callback : function(data) {
 			console.log(data);
 		}
 	});
-
 </script>
+
 </body>
 </html>
