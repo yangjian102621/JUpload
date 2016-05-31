@@ -75,7 +75,8 @@
 		var o = {};
 		o.dialog = null;
 		o.todoList = new Array(); //the file queue to be uploaded
-		o.successList = new Array(); //the file queue upload successfully
+		o.uploadSuccessNum = 0; //已经上传成功的图片数量
+		o.selectedList = new Array(); //the file queue upload successfully
 		o.addedFileNumber = 0; //the numbers of files that has added
 		o.totalFilesize = 0; //total file size
 		o.uploadLock = false; //upload thread lock
@@ -161,7 +162,7 @@
 					alert("您还有文件没有上传!");
 					return false;
 				}
-				options.callback(o.successList);
+				options.callback(o.selectedList);
 				o.close();
 			});
 			G(".btn-cancel").on("click", function() {
@@ -211,7 +212,7 @@
 		function addFiles(input) {
 
 			var files = input.files;
-			var totalFileNum = o.successList.length + o.todoList.length + files.length; //本次上传文件总数
+			var totalFileNum = o.selectedList.length + o.uploadSuccessNum + files.length; //本次上传文件总数
 			for ( var i = o.addedFileNumber; i < o.addedFileNumber+files.length; i++ ) {
 
 				if ( totalFileNum > options.max_filenum ) {
@@ -220,7 +221,18 @@
 				}
 				var builder = new StringBuilder();
 				var tempFile = files[i- o.addedFileNumber];
-				builder.append('<li id="img-comtainer-'+i+'"><div class="imgWrap"><img src="'+window.URL.createObjectURL(tempFile)+'" border="0" />');
+				builder.append('<li id="img-comtainer-'+i+'"><div class="imgWrap">');
+
+				//如果上传的不是图片，则通过判断文件后缀来显示不同的图标
+				var extension = getFileExt(tempFile.name);
+				if ( extension == '' ) extension = "default";
+				extension = extension.toLowerCase();
+				if ( "jpg|jpeg|gif|png|bmp".indexOf(extension) == -1 ) {
+					builder.append('<span class="icon-placeholder icon-'+extension+'"></span>');
+				} else {
+					builder.append('<img src="'+window.URL.createObjectURL(tempFile)+'" border="0" />');
+				}
+
 				builder.append('</div><div class="file-opt-box clearfix"><span class="remove" index="'+i+'">删除</span><span class="rotateRight">向右旋转</span>');
 				builder.append('<span class="rotateLeft">向左旋转</span></div><div class="success"></div><div class="error"></div>');
 				builder.append('<div class="progress"><span style="display: none; width: 0px;"></span></div></li>');
@@ -233,7 +245,7 @@
 					var index = $(this).attr("index");
 					for ( var i = 0; i < o.todoList.length; i++ ) {
 						if ( o.todoList[i].index == index ) {
-							updateInfoText(o.successList.length + o.todoList.length, o.totalFilesize - o.todoList[i].file.size);
+							updateInfoText(o.uploadSuccessNum + o.todoList.length, o.totalFilesize - o.todoList[i].file.size);
 							o.todoList.splice(i, 1);
 							break;
 						}
@@ -256,7 +268,7 @@
 				//console.log(tempFile);
 			}
 			o.addedFileNumber += files.length;
-			updateInfoText(o.successList.length + o.todoList.length, o.totalFilesize);
+			updateInfoText(o.uploadSuccessNum + o.todoList.length, o.totalFilesize);
 
 			//缩放并裁剪图片
 			$(".imgWrap img").imageCrop(113,113);
@@ -284,7 +296,8 @@
 					//console.log(e);
 					var data = $.parseJSON(e.target.responseText);
 					if ( data.code == 0 ) {
-						o.successList.push(data.message);   //添加文件到上传文件列表
+						o.selectedList.push(data.message);   //添加文件到上传文件列表
+						o.uploadSuccessNum++;
 						$("#img-comtainer-"+ node.index).find(".file-opt-box").remove();
 						$("#img-comtainer-"+ node.index).find(".progress").remove();
 						$("#img-comtainer-"+ node.index).find(".success").show();
@@ -325,7 +338,7 @@
 			} else {
 				o.uploadLock = false; //release the upload lock
 				G(".btn-start-upload").removeClass("disabled").text("开始上传");
-				//console.log(o.successList);
+				//console.log(o.selectedList);
 			}
 		}
 
@@ -369,7 +382,7 @@
 				&& options.ext_refuse.indexOf(ext) == -1 ) {
 				return true;
 			} else {
-				__error__("非法的文件后缀 "+ext);
+				__error__("非法的文件后缀 "+ext, node);
 				return false;
 			}
 
@@ -451,20 +464,30 @@
 			$.each(data, function(idx, item) {
 
 				var builder = new StringBuilder();
-				builder.append('<li><img src="'+item.thumbURL+'" data-src="'+item.oriURL+'" border="0">');
-				builder.append('<span class="ic"></span></li>');
+				builder.append('<li>');
+				var extension = getFileExt(item.thumbURL);
+				if ( extension == '' ) extension = "default";
+				extension = extension.toLowerCase();
+				if ( "jpg|jpeg|gif|png|bmp".indexOf(extension) == -1 ) {
+					builder.append('<span class="icon-placeholder icon-'+extension+'" data-src="'+item.oriURL+'"></span>');
+				} else {
+					builder.append('<img src="'+item.thumbURL+'" data-src="'+item.oriURL+'" border="0">');
+				}
+
+				builder.append('<span class="ic"><em class="img-size">'+item.width+'x'+item.height+'</em></span></li>');
 				var $image = $(builder.toString());
 
 				//绑定选择图片事件
 				$image.find(".ic").on("click", function() {
+					var src = $(this).prev().attr("data-src");
 					if ( $(this).hasClass("selected") ) {
 						$(this).removeClass("selected");
-						o.successList.remove($(this).prev().attr("data-src"));
+						o.selectedList.remove(src);
 					} else {
 						$(this).addClass("selected");
-						o.successList.push($(this).prev().attr("data-src"));
+						o.selectedList.push(src);
 					}
-					console.log(o.successList);
+					console.log(o.selectedList);
 				});
 				//裁剪显示图片
 				$image.find("img").imageCrop(113, 113);

@@ -1,4 +1,8 @@
 <?php
+/**
+ * 获取图片服务器上已上传的图片列表
+ * @author yangjian<yangjian102621@gmail.com>
+ */
 header("Content-Type:text/html; charset=UTF-8");
 $page = intval($_GET["page"]);
 $offset = ($page - 1) * 15;
@@ -13,7 +17,9 @@ if ( $handler != false ) {
                 $i++;
                 continue;
             }
-            array_push($files, array("thumbURL" => "files/".$filename, "oriURL" => "files/".$filename));
+            $size = getimagesize("files/".$filename);
+            array_push($files, array("thumbURL" => "files/".$filename, "oriURL" => "files/".$filename,
+                "width" => $size[0], "height" => $size[1]));
             $i++;
             if ( $i > $offset + 15 ) break;
         }

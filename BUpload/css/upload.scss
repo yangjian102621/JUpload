@@ -241,6 +241,7 @@ $fontsize:14px;
 								height: 113px;
 								transform-origin: 50% 50% 0px;
 								transition: all 200ms ease-out 0s;
+
 							}
 
 							//file opt box start
@@ -307,7 +308,6 @@ $fontsize:14px;
 								display: none;
 								background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;
 								left: 0;
-								width: 100%;
 								padding:5px 3px;
 								color: #cc0000;
 								border: 1px solid #cccccc;
@@ -390,11 +390,23 @@ $fontsize:14px;
 								width: 113px;
 								height: 113px;
 
+								.img-size {
+									font-size:12px;
+									padding: 5px;
+									background:rgba(0,0,0,0.6);
+									display: none;
+									color: #ffffff;
+								}
+
 								&:hover{
 									width: 107px;
 									height: 107px;
 									border: 3px solid #1094FA;
 									background-position: 72px 72px;
+									.img-size {
+										display: inline-block;
+										width: 97px;
+									}
 
 								}
 							}
@@ -481,12 +493,24 @@ $fontsize:14px;
 								width: 113px;
 								height: 113px;
 
+								.img-size {
+									font-size:12px;
+									padding: 5px;
+									background:rgba(0,0,0,0.6);
+									display: none;
+									color: #ffffff;
+								}
+
 								&:hover {
 									width: 107px;
 									height: 107px;
 									border: 3px solid #1094FA;
 									background-position: 72px 72px;
-
+									overflow: hidden;
+									.img-size {
+										display: inline-block;
+										width: 97px;
+									}
 								}
 							}
 							span.selected {
@@ -518,6 +542,53 @@ $fontsize:14px;
 				top:0; left: 0;
 				display: none;
 			}
+
+			//图片占位符
+			.icon-placeholder {
+				background-size: 113px 113px;
+				display: block;
+				width: 113px;
+				height: 113px;
+			}
+			.icon-aep, .icon-aepx {background-image: url("icons/aep.png");}
+			.icon-asp {background-image: url("icons/asp.png");}
+			.icon-avi {background-image: url("icons/avi.png");}
+			.icon-c, .icon-cpp {background-image: url("icons/c.png");}
+			.icon-conf {background-image: url("icons/conf.png");}
+			.icon-css {background-image: url("icons/css.png");}
+			.icon-default {background-image: url("icons/default.png");}
+			.icon-doc,.icon-docx {background-image: url("icons/doc.png");}
+			.icon-eps {background-image: url("icons/eps.png");}
+			.icon-fla,.icon-swf {background-image: url("icons/fla.png");}
+			.icon-idn {background-image: url("icons/idn.png");}
+			.icon-ini {background-image: url("icons/ini.png");}
+			.icon-java, .icon-jar, .icon-war {background-image: url("icons/java.png");}
+			.icon-jsf {background-image: url("icons/jsf.png");}
+			.icon-md, .icon-markdown {background-image: url("icons/markdown.png");}
+			.icon-mdb {background-image: url("icons/mdb.png");}
+			.icon-midi {background-image: url("icons/midi.png");}
+			.icon-mov {background-image: url("icons/mov.png");}
+			.icon-mp3 {background-image: url("icons/mp3.png");}
+			.icon-mpeg {background-image: url("icons/mpeg.png");}
+			.icon-pdf {background-image: url("icons/pdf.png");}
+			.icon-php {background-image: url("icons/php.png");}
+			.icon-ppt, .icon-pptx {background-image: url("icons/ppt.png");}
+			.icon-psd {background-image: url("icons/psd.png");}
+			.icon-pst {background-image: url("icons/pst.png");}
+			.icon-pub {background-image: url("icons/pub.png");}
+			.icon-py {background-image: url("icons/py.png");}
+			.icon-rb {background-image: url("icons/rb.png");}
+			.icon-rm, .icon-rmvb {background-image: url("icons/rmvb.png");}
+			.icon-scss {background-image: url("icons/scss.png");}
+			.icon-tif {background-image: url("icons/tif.png");}
+			.icon-txt {background-image: url("icons/txt.png");}
+			.icon-vsd {background-image: url("icons/vsd.png");}
+			.icon-wav {background-image: url("icons/wav.png");}
+			.icon-wma {background-image: url("icons/wma.png");}
+			.icon-wmv {background-image: url("icons/wmv.png");}
+			.icon-xls, .icon-xlsx {background-image: url("icons/vsd.png");}
+			.icon-xml {background-image: url("icons/xml.png");}
+			.icon-zip, .icon-rar, .icon-gz, .icon-tar, .icon-7z {background-image: url("icons/zip.png");}
 
 		}//end of wra_body
 
