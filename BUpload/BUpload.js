@@ -9,7 +9,6 @@
 
 	//image crop
 	$.fn.imageCrop = function(__width, __height) {
-
 		$(this).on("load", function () {
 
 			var width, height, left, top;
@@ -37,12 +36,51 @@
 		});
 	}
 
-	Array.prototype.remove = function(item) {
-		for ( var i = 0; i < this.length; i++ ) {
-			if ( this[i] == item ) {
-				this.splice(i, 1);
-				break;
+	//make element draggable
+	$.fn.draggable = function(options) {
+		var defaults = {
+			handler : null
+		}
+		options = $.extend(defaults, options);
+		var __self = this;
+		$(options.handler).mousedown(function(e) {
+			var offsetLeft = e.pageX - $(__self).position().left;
+			var offsetTop = e.pageY - $(__self).position().top;
+			$(document).mousemove(function(e) {
+				//清除拖动鼠标的时候选择文本
+				window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+				$(__self).css({
+					'top'  : e.pageY-offsetTop + 'px',
+					'left' : e.pageX-offsetLeft + 'px'
+				});
+			});
+
+		}).mouseup(function() {
+			$(document).unbind('mousemove');
+		});
+
+	}
+
+	if ( Array.prototype.remove == undefined ) {
+		Array.prototype.remove = function(item) {
+			for ( var i = 0; i < this.length; i++ ) {
+				if ( this[i] == item ) {
+					this.splice(i, 1);
+					break;
+				}
 			}
+		}
+	}
+	if ( Array.prototype.uinque == undefined ) {
+		Array.prototype.uinque = function() {
+			var result = [], hash = {};
+			for ( var i = 0, item; (item = this[i]) != null; i++ ) {
+				if ( !hash[item] ) {
+					result.push(item);
+					hash[item] = true;
+				}
+			}
+			return result;
 		}
 	}
 
@@ -72,6 +110,57 @@
 			'3' : '非法文件名后缀'
 		};
 
+		var mimeType = {
+			"3gpp":"audio/3gpp, video/3gpp",
+			"ac3":"audio/ac3",
+			"asf":"allpication/vnd.ms-asf",
+			"au":"audio/basic",
+			"css":"text/css",
+			"csv":"text/csv",
+			"doc":"application/msword",
+			"dot":"application/msword",
+			"dtd":"application/xml-dtd",
+			"dwg":"image/vnd.dwg",
+			"dxf":"image/vnd.dxf",
+			"gif":"image/gif",
+			"htm":"text/html",
+			"html":"text/html",
+			"jp2":"image/jp2",
+			"jpe":"image/jpeg",
+			"jpeg":"image/jpeg",
+			"jpg":"image/jpeg",
+			"js":"text/javascript, application/javascript",
+			"json":"application/json",
+			"mp2":"audio/mpeg, video/mpeg",
+			"mp3":"audio/mpeg",
+			"mp4":"audio/mp4, video/mp4",
+			"mpeg":"video/mpeg",
+			"mpg":"video/mpeg",
+			"mpp":"application/vnd.ms-project",
+			"ogg":"application/ogg, audio/ogg",
+			"pdf":"application/pdf",
+			"png":"image/png",
+			"pot":"application/vnd.ms-powerpoint",
+			"pps":"application/vnd.ms-powerpoint",
+			"ppt":"application/vnd.ms-powerpoint",
+			"rtf":"application/rtf, text/rtf",
+			"svf":"image/vnd.svf",
+			"tif":"image/tiff",
+			"tiff":"image/tiff",
+			"txt":"text/plain",
+			"wdb":"application/vnd.ms-works",
+			"wps":"application/vnd.ms-works",
+			"xhtml":"application/xhtml+xml",
+			"xlc":"application/vnd.ms-excel",
+			"xlm":"application/vnd.ms-excel",
+			"xls":"application/vnd.ms-excel",
+			"xlt":"application/vnd.ms-excel",
+			"xlw":"application/vnd.ms-excel",
+			"xml":"text/xml, application/xml",
+			"zip":"aplication/zip",
+			"xlsx":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		}
+
 		var o = {};
 		o.dialog = null;
 		o.todoList = new Array(); //the file queue to be uploaded
@@ -99,18 +188,25 @@
 			builder.append('</div><div class="wrapper"><div id="wra_head" class="wra_head"><span class="tab tab-upload focus" tab="upload-panel">本地上传</span>');
 			builder.append('<span class="tab tab-online" tab="online">文件服务器</span><span class="tab tab-search" tab="searchbox">图片搜索</span></div>');
 			builder.append('<div class="wra_body"><div class="tab-panel upload-panel"><div class="wra_pla"><div class="upload-image-placeholder">');
-			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="src" class="webuploader-element-invisible" multiple="multiple">');
+			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="src" class="webuploader-element-invisible"' +
+				' multiple="multiple" accept="'+getAccept()+'">');
 			builder.append('</div></div><div class="image-list-box" style="display: none;"><div class="wra_bar"><div class="info fl"></div>');
 			builder.append('<div class="fr"><span class="btn btn-default btn-continue-add">继续添加</span><span class="btn btn-primary btn-start-upload">开始上传</span></div></div>');
 			builder.append('<ul class="filelist"></ul></div></div><div class="tab-panel online"><div class="imagelist"><ul class="list clearfix"></ul><div class="no-data"></div></div></div>');
 			builder.append('<div class="tab-panel searchbox"><div class="search-bar"><input class="searTxt" type="text" placeholder="请输入搜索关键词" />');
-			builder.append('<input value="百度一下" class="btn btn-primary btn-search" type="button" /><input value="清空搜索" class="btn btn-default btn-reset" type="button" />');
+			builder.append('<input value="搜索一下" class="btn btn-primary btn-search" type="button" /><input value="清空搜索" class="btn btn-default btn-reset" type="button" />');
 			builder.append('</div><div class="search-imagelist-box"><ul class="search-list"></ul><div class="no-data"></div></div>');
 			builder.append('</div><div class="loading-icon"></div></div><!-- end of wrapper --></div><div class="wra-btn-group"><span class="btn btn-primary btn-confirm">确认</span>');
 			builder.append('<span class="btn btn-default btn-cancel">取消</span></div></div>');
 
 			o.dialog = $(builder.toString());
 			$("body").append(o.dialog);
+			o.dialog.css({
+				left : ($(window).width() - o.dialog.width())/2 + "px",
+				top : 40 + "px"
+			});
+			//给对话框添加拖拽事件
+			o.dialog.draggable({handler : o.dialog.find(".ued_title")})
 
 		}
 
@@ -205,6 +301,10 @@
 				o.searchPage = 1;
 				G(".search-imagelist-box").find(".search-list").empty();
 				imageSearch();
+			});
+			//重置搜索
+			G(".btn-reset").on("click", function() {
+				G(".searTxt").val("");
 			});
 		}
 
@@ -398,6 +498,18 @@
 			return false;
 		}
 
+		function getAccept() {
+			var extensions = options.ext_allow.split("|");
+			var accept = [];
+			$.each(extensions, function(idx, item) {
+				accept.push(mimeType[item]);
+			});
+			if ( accept.length > 1 ) {
+				return accept.uinque().join(",");
+			}
+			return "*";
+		}
+
 		//显示上传错误信息
 		function __error__(message, node) {
 			G("#img-comtainer-"+ node.index).find(".error").show().text(message);
@@ -487,7 +599,7 @@
 						$(this).addClass("selected");
 						o.selectedList.push(src);
 					}
-					console.log(o.selectedList);
+					//console.log(o.selectedList);
 				});
 				//裁剪显示图片
 				$image.find("img").imageCrop(113, 113);

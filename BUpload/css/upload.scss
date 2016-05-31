@@ -32,7 +32,7 @@ $dialogZindex:2000;
 $fontsize:14px;
 .uedbody{
 	width: $dialogWidth;
-	position: relative;
+	position: absolute;
 	padding: 2px 0px 0px 2px;
 	background-color: #FFF;
 	border: 1px solid rgba(0, 0, 0, 0.2);
@@ -586,9 +586,9 @@ $fontsize:14px;
 			.icon-wav {background-image: url("icons/wav.png");}
 			.icon-wma {background-image: url("icons/wma.png");}
 			.icon-wmv {background-image: url("icons/wmv.png");}
-			.icon-xls, .icon-xlsx {background-image: url("icons/vsd.png");}
+			.icon-xls, .icon-xlsx {background-image: url("icons/xls.png");}
 			.icon-xml {background-image: url("icons/xml.png");}
-			.icon-zip, .icon-rar, .icon-gz, .icon-tar, .icon-7z {background-image: url("icons/zip.png");}
+			.icon-zip, .icon-rar, .icon-tgz, .icon-gz, .icon-tar, .icon-7z {background-image: url("icons/zip.png");}
 
 		}//end of wra_body
 

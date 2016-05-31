@@ -7,19 +7,33 @@
 </head>
 <body>
 
+<div style="padding:100px;">
+	<button id="upload-btn" style="padding: 10px 20px;">上传图片</button>
+	<div id="image-box">
+
+	</div>
+</div>
+
 <script src="BUpload/jquery.min.js"></script>
 <script src="BUpload/BUpload.js"></script>
-
 <script>
-	new BUpload({
-		upload_url : "upload.php",
-		list_url : "image_list.php",	//图片列表数据获取url
-		search_url : "image_search.php",	//图片搜索页面url
-		max_filesize : 1024,
-		max_filenum : 40,
-		callback : function(data) {
-			console.log(data);
-		}
+
+	$("#upload-btn").on("click", function() {
+
+		new BUpload({
+			upload_url : "upload.php",
+			list_url : "image_list.php",	//图片列表数据获取url
+			search_url : "image_search.php",	//图片搜索页面url
+			max_filesize : 1024,
+			max_filenum : 40,
+			callback : function(data) {
+				$.each(data, function(idx, item) {
+					$("#image-box").append('<img src="'+item+'" width="200" />');
+				});
+				console.log(data);
+			}
+		});
+
 	});
 </script>
 

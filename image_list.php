@@ -19,7 +19,7 @@ if ( $handler != false ) {
             }
             $size = getimagesize("files/".$filename);
             array_push($files, array("thumbURL" => "files/".$filename, "oriURL" => "files/".$filename,
-                "width" => $size[0], "height" => $size[1]));
+                "width" => intval($size[0]), "height" => intval($size[1])));
             $i++;
             if ( $i > $offset + 15 ) break;
         }

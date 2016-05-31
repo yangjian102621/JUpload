@@ -83,7 +83,7 @@ input::-moz-focus-inner {
 
 .uedbody {
   width: 652px;
-  position: relative;
+  position: absolute;
   padding: 2px 0px 0px 2px;
   background-color: #FFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -539,10 +539,10 @@ input::-moz-focus-inner {
       .uedbody .wrapper .wra_body .icon-wmv {
         background-image: url("icons/wmv.png"); }
       .uedbody .wrapper .wra_body .icon-xls, .uedbody .wrapper .wra_body .icon-xlsx {
-        background-image: url("icons/vsd.png"); }
+        background-image: url("icons/xls.png"); }
       .uedbody .wrapper .wra_body .icon-xml {
         background-image: url("icons/xml.png"); }
-      .uedbody .wrapper .wra_body .icon-zip, .uedbody .wrapper .wra_body .icon-rar, .uedbody .wrapper .wra_body .icon-gz, .uedbody .wrapper .wra_body .icon-tar, .uedbody .wrapper .wra_body .icon-7z {
+      .uedbody .wrapper .wra_body .icon-zip, .uedbody .wrapper .wra_body .icon-rar, .uedbody .wrapper .wra_body .icon-tgz, .uedbody .wrapper .wra_body .icon-gz, .uedbody .wrapper .wra_body .icon-tar, .uedbody .wrapper .wra_body .icon-7z {
         background-image: url("icons/zip.png"); }
   .uedbody .wra-btn-group {
     text-align: right;
