@@ -8,19 +8,28 @@
 </head>
 
 <body>
-	<button id="button">上传图片</button>
+
+	<div style="padding:100px;">
+		<button id="upload-btn" style="padding: 10px 20px;">上传图片</button>
+		<div id="image-box">
+
+		</div>
+	</div>
 
 	<script src="TUpload/jquery.js"></script>
-	<script type="text/javascript" src="TUpload/TUpload.min.js"></script>
+	<script type="text/javascript" src="TUpload/TUpload.js"></script>
 
 	<script type="text/javascript">
 
-		$('#button').on('click', function() {
+		$('#upload-btn').on('click', function() {
 			new TUpload({
 				uploadUrl : "upload.php",
 				maxFileSize : 1024,
 				maxFileNum : 20,
 				callback : function(data) {
+					$.each(data, function(idx, item) {
+						$("#image-box").append('<img src="'+item+'" width="200" />');
+					});
 					console.log(data);
 				}
 			});

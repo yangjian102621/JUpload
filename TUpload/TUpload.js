@@ -10,7 +10,7 @@ var TUpload = function(options) {
 
 	//判断浏览器是否支持html5
 	if ( !window.applicationCache )
-		throw ("Your browser version is too low, do not support html5, can not be used AjaxUpload upload the plugin, please upgrade your browser!");
+		throw new Error("Your browser version is too low, do not support html5, can not be used AjaxUpload upload the plugin, please upgrade your browser!");
 
 	//default options(默认选项)
 	var defaults = {
@@ -59,6 +59,7 @@ var TUpload = function(options) {
 			+ '         <button class="btn-upload"></button>'
 			+ '         <button class="btn-add-file"></button>'
 			+ '     </div>'
+			+ '     <span class="jupload-close"></span>'
 			+ '</div>';
 
 		$('body').append(frameElements);
@@ -71,7 +72,7 @@ var TUpload = function(options) {
 			$("#input-select-file").trigger("click");
 		});
 
-		$("#jupload-btn-box"+" .btn-add-file").on("click", function() {
+		$("#jupload-btn-box  .btn-add-file").on("click", function() {
 
 			if ( toUploadList.length > 0 ) {
 				alert("请先上传文件！");
@@ -82,6 +83,11 @@ var TUpload = function(options) {
 			}
 			$('#jupload-container').remove();
 			//console.log("close the window.");
+		});
+
+		//关闭上传对话框
+		$("#jupload-container .jupload-close").on("click", function() {
+			$('#jupload-container').remove();
 		});
 
 		//bind start upload event(绑定开始上传事件)

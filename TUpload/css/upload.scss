@@ -1,0 +1,183 @@
+.jupload-container {
+    width: 990px;
+    padding:10px;
+    background-color: #ffffff;
+    border:2px solid #d1d1d1;
+    border-radius: 6px;
+    position: absolute;
+    * {
+        margin: 0; padding: 0;
+    }
+
+    .jupload-panel {
+        height: 350px;
+        text-align: center;
+        position: relative;
+
+	    //start of image-list-box
+        .image-list-box {
+            height: 318px;
+            zoom: 1;
+            overflow-x:hidden;
+            overflow-y: auto;
+
+	        //start of img-container
+            .img-container {
+                margin: 0 5px 10px 5px;
+                position: relative;
+                width: 150px;
+                height: 150px;
+                overflow: hidden;
+                border: 1px solid #d1d1d1;
+                float: left;
+
+	            //start of image
+                .image {
+                    position: relative;
+                    padding: 0px;
+
+                    .mask {
+                        position: absolute;
+                        left:0;
+                        top:0;
+                        background: #F1F1F1;
+                        opacity: 0.8;
+                        width: 110px;
+                        height: 110px;
+                        padding: 10px 30px 10px 10px;
+                        font-size: 12px;
+                        text-align: left;
+                    }
+
+                    .mask.error {
+                        color : #cc0000;
+                    }
+                } //end of image
+
+	            //start of file-info
+	            .file-info {
+		            position: absolute;
+		            top:120px;
+		            left: 0;
+		            width: 100%;
+		            background-color: #ffffff;
+
+		            .progress {
+			            text-align: left;
+			            padding: 0px;
+			            margin: 0px;
+
+			            .progress-bar {
+				            background-color: #00a0e9;
+				            display: block;
+				            width: 0;
+				            height: 10px;
+				            margin: 0;
+			            }
+		            }
+
+		            .file-size {
+			            text-align: left; font-size:13px;
+			            padding: 3px 5px;
+			            color : #666666;
+		            }
+	            }//end of file-info
+
+	            .remove {
+		            position: absolute;
+		            width: 32px;
+		            height:33px;
+		            background: url("upload.png") no-repeat;
+		            top:0;
+		            right:0;
+		            cursor: pointer;
+	            }
+
+	            .success {
+		            display: none;
+		            position: absolute;
+		            width: 32px;
+		            height:35px;
+		            background: url("upload.png") no-repeat left -33px;
+		            top:0;
+		            right:0;
+	            }
+            }//end of img-container
+
+	        .addmore-box {
+		        width: 150px;
+		        height: 150px;
+		        float: left;
+		        margin: 0 5px 10px 5px;
+
+		        .addmore-btn {
+			        width: 150px;
+			        height: 152px;
+			        background: url("upload.png") left -292px no-repeat;
+			        cursor: pointer;
+			        display: inline-block;
+
+			        &:hover {
+				        opacity: 0.8;
+			        }
+		        }
+	        }
+        }//end of image-list-box
+
+	    /* init add file btn style */
+	    .init-add-file-btn {
+		    background: url("upload.png") left -89px no-repeat;
+		    width: 203px; height: 53px;
+		    margin: auto;
+		    position: absolute;
+	    }
+	    .init-add-file-btn input {
+		    opacity: 0;
+		    width: 100%;
+		    height: 53px;
+	    }
+    }//end of upload-panel
+
+	//start of
+	.jupload-btn-box {
+		margin: 0; padding: 0;
+		zoom: 1; overflow: hidden;
+
+		button {
+			height: 40px;
+			border: none;
+			background: url("upload.png") no-repeat;
+			float: left;
+			margin-right: 10px;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+		.btn-upload {
+			background-position: left -166px;
+			width: 154px;
+		}
+
+		.btn-add-file {
+			background-position: left -229px;
+			width: 102px;
+			margin-right: 10px;
+		}
+	}
+
+	.jupload-close {
+		position: absolute;
+		width: 32px;
+		height:33px;
+		background: url("upload.png") no-repeat;
+		top:-16px;
+		right:-16px;
+		cursor: pointer;
+	}
+
+}
+
+
+

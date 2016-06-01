@@ -8,7 +8,7 @@ if ( isset($_FILES['src']) ) {
     $filename = md5(time().$localfile['name']).get_extension($localfile['name']);
     if ( move_uploaded_file($localfile['tmp_name'], __DIR__."/files/".$filename) ) {
         $data["code"] = 0;
-        $data["message"] = '/files/'.$filename;
+        $data["message"] = 'files/'.$filename;
     }
 }
 echo json_encode($data);
