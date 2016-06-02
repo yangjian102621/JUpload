@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>基于iframe的文件异步上传</title>
+
+	<link rel="stylesheet" type="text/css" href="JUpload/css/upload.css" />
+</head>
+
+<body>
+
+	<!--<div style="padding:100px;">-->
+		<!--<button id="upload-btn" style="padding: 10px 20px;">上传图片</button>-->
+		<!--<div id="image-box">-->
+
+		<!--</div>-->
+	<!--</div>-->
+
+	<form action="upload.php" target="iframe" enctype="multipart/form-data" method="post" id="upload-form">
+		<input type="file" name="src" id="upload-input" />
+	</form>
+
+	<iframe name="iframe" id="iframe"></iframe>
+
+	<script src="TUpload/jquery.js"></script>
+
+	<script>
+
+		$("#upload-input").on("change", function() {
+			document.getElementById("upload-form").submit();
+		});
+
+		$("#iframe").on("load", function() {
+			console.log(this.contentWindow.document.getElementsByTagName("body")[0].innerHTML);
+		});
+
+	</script>
+
+</body>
+</html>

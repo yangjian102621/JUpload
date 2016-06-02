@@ -1,6 +1,7 @@
 <?php
 header("Content-Type:text/html; charset=UTF-8");
 $data = array("code" => 1, "message" => "文件上传失败");
+echo json_encode($_FILES);die();
 //文件上传处理
 if ( isset($_FILES['src']) ) {
 

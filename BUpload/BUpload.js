@@ -190,8 +190,13 @@
 			builder.append('<div class="uedbody"><div class="ued_title">');
 			builder.append('<div class="uedbar"><span>多图上传</span></div><div class="close_btn icon" title="关闭对话框"></div>');
 			builder.append('</div><div class="wrapper"><div id="wra_head" class="wra_head"><span class="tab tab-upload focus" tab="upload-panel">本地上传</span>');
-			builder.append('<span class="tab tab-online" tab="online">文件服务器</span><span class="tab tab-search" tab="searchbox">图片搜索</span></div>');
-			builder.append('<div class="wra_body"><div class="tab-panel upload-panel"><div class="wra_pla"><div class="upload-image-placeholder">');
+			if ( options.list_url != null ) {
+				builder.append('<span class="tab tab-online" tab="online">文件服务器</span>');
+			}
+			if ( options.search_url != null ) {
+				builder.append('<span class="tab tab-search" tab="searchbox">图片搜索</span>');
+			}
+			builder.append('</div><div class="wra_body"><div class="tab-panel upload-panel"><div class="wra_pla"><div class="upload-image-placeholder">');
 			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="src" class="webuploader-element-invisible"' +
 				' multiple="multiple" accept="'+getAccept()+'">');
 			builder.append('</div></div><div class="image-list-box" style="display: none;"><div class="wra_bar"><div class="info fl"></div>');
