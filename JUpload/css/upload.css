@@ -1,0 +1,96 @@
+@charset "UTF-8";
+/************************* reset css start ***********************************/
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  font-size: 12px;
+  font-family: "微软雅黑";
+  color: #333;
+  -webkit-text-size-adjust: none;
+  width: 100%;
+  background-color: #fff; }
+
+body, div, dl, dt, dd, ul, li, ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote, p {
+  margin: 0;
+  padding: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal; }
+
+li {
+  list-style-type: none; }
+
+ol, ul, dl {
+  list-style: none; }
+
+em {
+  font-style: normal; }
+
+img {
+  border: none;
+  vertical-align: middle; }
+
+select, label, input {
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+  outline: medium;
+  font-size: 12px; }
+
+textarea {
+  resize: none;
+  line-height: 18px; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cell: show; }
+
+a {
+  text-decoration: none;
+  color: #333;
+  outline: none;
+  cursor: pointer; }
+
+a:hover {
+  cursor: pointer;
+  blr: expression(this.onFocus=this.blur()); }
+
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/*针对Firefox*/
+/***************************** reset css end ***********************************/
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.clearfix {
+  *zoom: 1;
+  /*ie6,7*/ }
+
+.upload-input {
+  opacity: 0;
+  width: 0;
+  height: 0; }
+
+.upload-iframe {
+  display: none; }
+
+.img-wrapper {
+  float: left;
+  padding: 2px;
+  margin: 3px;
+  border: 1px solid #cccccc; }
+  .img-wrapper .img-container {
+    zoom: 1;
+    overflow: hidden;
+    position: relative; }
+
+/*# sourceMappingURL=upload.css.map */

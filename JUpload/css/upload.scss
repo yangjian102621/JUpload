@@ -24,9 +24,25 @@ input::-moz-focus-inner{ border: 0;padding: 0;}/*针对Firefox*/
 .clearfix{
 	*zoom: 1;/*ie6,7*/
 }
-.fr{float: right;}
-.fl{float: left;}
 
-$dialogWidth:652px;
-$dialogZindex:2000;
-$fontsize:14px;
+.upload-input {
+	opacity: 0;
+	width: 0;
+	height:0;
+}
+.upload-iframe {
+	display: none;
+}
+.img-wrapper {
+	float: left;
+	padding: 2px;
+	margin: 3px;
+	border: 1px solid #cccccc;
+
+	.img-container {
+		zoom: 1; overflow: hidden;
+		position: relative;
+
+		.remove {}
+	}
+}

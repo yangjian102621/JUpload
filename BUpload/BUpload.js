@@ -197,7 +197,7 @@
 				builder.append('<span class="tab tab-search" tab="searchbox">图片搜索</span>');
 			}
 			builder.append('</div><div class="wra_body"><div class="tab-panel upload-panel"><div class="wra_pla"><div class="upload-image-placeholder">');
-			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="src" class="webuploader-element-invisible"' +
+			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="'+options.src+'" class="webuploader-element-invisible"' +
 				' multiple="multiple" accept="'+getAccept()+'">');
 			builder.append('</div></div><div class="image-list-box" style="display: none;"><div class="wra_bar"><div class="info fl"></div>');
 			builder.append('<div class="fr"><span class="btn btn-default btn-continue-add">继续添加</span><span class="btn btn-primary btn-start-upload">开始上传</span></div></div>');
@@ -507,6 +507,7 @@
 			return false;
 		}
 
+		//获取可接受的文件后缀
 		function getAccept() {
 			var extensions = options.ext_allow.split("|");
 			var accept = [];
