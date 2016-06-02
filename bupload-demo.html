@@ -25,7 +25,7 @@
 			list_url : "image_list.php",	//图片列表数据获取url
 			search_url : "image_search.php",	//图片搜索页面url
 			max_filesize : 1024,
-			max_filenum : 40,
+			max_filenum : 10,
 			callback : function(data) {
 				$.each(data, function(idx, item) {
 					$("#image-box").append('<img src="'+item+'" width="200" />');

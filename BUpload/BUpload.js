@@ -316,7 +316,7 @@
 		function addFiles(input) {
 
 			var files = input.files;
-			var totalFileNum = o.selectedList.length + o.uploadSuccessNum + files.length; //本次上传文件总数
+			var totalFileNum = o.todoList.length + o.uploadSuccessNum + files.length; //本次上传文件总数
 			for ( var i = o.addedFileNumber; i < o.addedFileNumber+files.length; i++ ) {
 
 				if ( totalFileNum > options.max_filenum ) {
