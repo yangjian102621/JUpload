@@ -92,5 +92,34 @@ input::-moz-focus-inner {
     zoom: 1;
     overflow: hidden;
     position: relative; }
+    .img-wrapper .img-container .file-opt-box {
+      position: absolute;
+      display: none;
+      background: rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      overflow: hidden; }
+      .img-wrapper .img-container .file-opt-box span {
+        width: 24px;
+        height: 24px;
+        display: inline;
+        float: right;
+        text-indent: -9999px;
+        overflow: hidden;
+        background: url("icons.png") no-repeat;
+        margin: 5px 1px 1px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; }
+      .img-wrapper .img-container .file-opt-box .remove {
+        background-position: -48px -24px; }
+        .img-wrapper .img-container .file-opt-box .remove:hover {
+          background-position: -48px -0px; }
+    .img-wrapper .img-container:hover .file-opt-box {
+      display: block; }
 
 /*# sourceMappingURL=upload.css.map */

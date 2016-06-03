@@ -10,9 +10,14 @@
 <body>
 
 	<div style="padding:100px;">
-		<button id="upload-btn" style="padding: 10px 20px;">上传图片</button>
+		<button id="upload-btn" style="padding: 10px 20px;">上传图片1</button>
 		<div id="image-box">
 
+		</div>
+
+		<div style="padding-top: 30px;;">
+			<input type="text" style="padding: 10px; width: 250px;" id="img-src">
+			<button id="upload-btn2" style="padding: 8px 20px;">上传图片2</button>
 		</div>
 	</div>
 
@@ -25,6 +30,14 @@
 			url : "upload.php",
 			src : "src",
 			image_container : "image-box"
+		});
+
+		$("#upload-btn2").JUpload({
+			url : "upload.php",
+			src : "src",
+			callback : function(data) {
+				$("#img-src").val(data.message);
+			}
 		});
 
 	</script>

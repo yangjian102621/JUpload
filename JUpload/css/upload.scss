@@ -43,6 +43,45 @@ input::-moz-focus-inner{ border: 0;padding: 0;}/*针对Firefox*/
 		zoom: 1; overflow: hidden;
 		position: relative;
 
-		.remove {}
+		//file opt box start
+		.file-opt-box{
+			position: absolute;
+			display: none;
+			background: rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%;
+			width: 100%;
+			top: 0px;
+			left: 0px;
+			overflow: hidden;
+
+			span {
+				width: 24px;
+				height: 24px;
+				display: inline;
+				float: right;
+				text-indent: -9999px;
+				overflow: hidden;
+				background: url("icons.png") no-repeat;
+				margin: 5px 1px 1px;
+				cursor: pointer;
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			.remove{
+				background-position: -48px -24px;
+				&:hover{
+					background-position: -48px -0px;
+				}
+			}
+		}//file opt box end
+
+		&:hover {
+			.file-opt-box {
+				display: block;
+			}
+		}
 	}
 }

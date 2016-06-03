@@ -7,7 +7,6 @@
  */
 (function($) {
 
-	var images = [];
 	if ( Array.prototype.remove == undefined ) {
 		Array.prototype.remove = function(item) {
 			for ( var i = 0; i < this.length; i++ ) {
@@ -49,20 +48,21 @@
 		}
 	}
 	//单个上传文件
-	$.fn.JUpload = function(options) {
-		options = $.extend({
+	$.fn.JUpload = function(__options) {
+		var options = $.extend({
 			src : "src",
 			url : null,
 			callback : null,
 			image_container : null,
 			twidth : 113,
 			theight : 113
-		}, options);
+		}, __options);
 		var __self = this;
-
-		var $form = $('<form action="'+options.url+'" target="iframe" enctype="multipart/form-data" method="post"></form>');
+		var images = []; //已经上传的图片列表
+		var frameName = "iframe_"+Math.random();
+		var $form = $('<form action="'+options.url+'" target="'+frameName+'" enctype="multipart/form-data" method="post"></form>');
 		var $input = $('<input type="file" name="'+options.src+'" class="upload-input" />');
-		var $iframe = $('<iframe name="iframe" class="upload-iframe"></iframe>');
+		var $iframe = $('<iframe name="'+frameName+'" class="upload-iframe"></iframe>');
 		//给按钮绑定点击事件
 		$(this).on("click", function() {
 			$input.trigger("click");
@@ -98,10 +98,24 @@
 			var builder = new StringBuilder();
 			builder.append('<div class="img-wrapper"><div class="img-container" style="width: '+options.twidth+'px; height: '+options.theight+'px">');
 			builder.append('<img src="'+data.message+'">');
-			builder.append('<span class="remove"></span></div></div>');
+			builder.append('<div class="file-opt-box clearfix"><span class="remove">删除</span></div></div></div>');
 			var $image = $(builder.toString());
 			$("#"+options.image_container).append($image);
 			$image.find("img").imageCrop(options.twidth, options.theight);
+			//$image.hover(function() {     //这里的hover效果已经通过css实现了
+			//	$(this).find(".file-opt-box").show();
+			//}, function() {
+			//	$(this).find(".file-opt-box").hide();
+			//});
+			//删除图片
+			$image.find(".remove").on("click", function() {
+				try {
+					var src = $(this).parent().prev().attr("src");
+					images.remove(src);
+					$image.remove();
+					$(__self).attr("data-src", images.join(","));
+				} catch (e) {console.log(e);}
+			});
 
 			images.push(data.message);
 			$(__self).attr("data-src", images.join(","));
