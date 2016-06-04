@@ -1,86 +1,4 @@
 @charset "UTF-8";
-/************************* reset css start ***********************************/
-body {
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  font-size: 12px;
-  font-family: "微软雅黑";
-  color: #333;
-  -webkit-text-size-adjust: none;
-  width: 100%;
-  background-color: #fff; }
-
-body, div, dl, dt, dd, ul, li, ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote, p {
-  margin: 0;
-  padding: 0; }
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal; }
-
-li {
-  list-style-type: none; }
-
-ol, ul, dl {
-  list-style: none; }
-
-em {
-  font-style: normal; }
-
-img {
-  border: none;
-  vertical-align: middle; }
-
-select, label, input {
-  vertical-align: middle;
-  padding: 0;
-  margin: 0;
-  outline: medium;
-  font-size: 12px; }
-
-textarea {
-  resize: none;
-  line-height: 18px; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  empty-cell: show; }
-
-a {
-  text-decoration: none;
-  color: #333;
-  outline: none;
-  cursor: pointer; }
-
-a:hover {
-  cursor: pointer;
-  blr: expression(this.onFocus=this.blur()); }
-
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0; }
-
-/*针对Firefox*/
-/***************************** reset css end ***********************************/
-.clearfix:before, .clearfix:after {
-  content: "";
-  display: table; }
-
-.clearfix:after {
-  clear: both; }
-
-.clearfix {
-  *zoom: 1;
-  /*ie6,7*/ }
-
-.fr {
-  float: right; }
-
-.fl {
-  float: left; }
-
 .uedbody {
   width: 652px;
   position: absolute;
@@ -90,7 +8,55 @@ input::-moz-focus-inner {
   border-radius: 6px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   z-index: 2000;
+  font-family: "微软雅黑";
+  font-size: 12px;
   margin: 0px auto; }
+  .uedbody div, .uedbody dl, .uedbody dt, .uedbody dd, .uedbody ul, .uedbody li, .uedbody ol, .uedbody h1, .uedbody h2, .uedbody h3, .uedbody h4, .uedbody h5, .uedbody h6, .uedbody pre, .uedbody code, .uedbody form, .uedbody fieldset, .uedbody legend, .uedbody button, .uedbody textarea, .uedbody blockquote, .uedbody p {
+    margin: 0;
+    padding: 0; }
+  .uedbody h1, .uedbody h2, .uedbody h3, .uedbody h4, .uedbody h5, .uedbody h6 {
+    font-weight: normal; }
+  .uedbody li {
+    list-style-type: none; }
+  .uedbody ol, .uedbody ul, .uedbody dl {
+    list-style: none; }
+  .uedbody em {
+    font-style: normal; }
+  .uedbody img {
+    border: none;
+    vertical-align: middle; }
+  .uedbody select, .uedbody label, .uedbody input {
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    outline: medium;
+    font-size: 12px; }
+  .uedbody textarea {
+    resize: none;
+    line-height: 18px; }
+  .uedbody table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cell: show; }
+  .uedbody a {
+    text-decoration: none;
+    color: #333;
+    outline: none;
+    cursor: pointer; }
+  .uedbody a:hover {
+    cursor: pointer;
+    blr: expression(this.onFocus=this.blur()); }
+  .uedbody .clearfix:before, .uedbody .clearfix:after {
+    content: "";
+    display: table; }
+  .uedbody .clearfix:after {
+    clear: both; }
+  .uedbody .clearfix {
+    *zoom: 1; }
+  .uedbody .fr {
+    float: right; }
+  .uedbody .fl {
+    float: left; }
   .uedbody .ued_title {
     height: 26px;
     border-bottom: 1px solid #C6C6C6;

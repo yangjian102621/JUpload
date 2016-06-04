@@ -1,9 +1,9 @@
 /**
  * 百度web编辑器UI的HTML5上传插件
  *
- * @author      yangjian102621@163.com
- * @version     1.1
- * @since       2016.05.24
+ * @author yangjian<yangjian102621@gmail.com>
+ * @version 1.0.1
+ * @since 2016.05.24
  */
 (function($) {
 
