@@ -96,6 +96,7 @@
 			list_url : null,
 			search_url : null,
 			data_type : "json",
+			top : 50,
 			max_filesize : 2048,    //unit:KB
 			max_filenum : 20,
 			no_data_text : "(⊙o⊙)亲，没有多数据了。",
@@ -177,10 +178,12 @@
 		o.searchPage = 1; //图片搜索页码
 		o.searchText = null; //搜索文字
 		o.noRecord = false;
+		var dialogSCode = Math.ceil(Math.random() * 1000000000000); //对话框的令牌，如果创建多个BUpload上传对象用来保持唯一性
 
 		//close the dialog
 		o.close = function () {
 			o.dialog.remove();
+			try {JDialog.lock.hide();} catch (e) {}
 		}
 
 		//create dialog
@@ -212,7 +215,7 @@
 			$("body").append(o.dialog);
 			o.dialog.css({
 				left : ($(window).width() - o.dialog.width())/2 + "px",
-				top : 40 + "px"
+				top : options.top + "px"
 			});
 			//给对话框添加拖拽事件
 			o.dialog.draggable({handler : o.dialog.find(".ued_title")})
@@ -330,7 +333,7 @@
 				}
 				var builder = new StringBuilder();
 				var tempFile = files[i- o.addedFileNumber];
-				builder.append('<li id="img-comtainer-'+i+'"><div class="imgWrap">');
+				builder.append('<li id="img-comtainer-'+dialogSCode+i+'"><div class="imgWrap">');
 
 				//如果上传的不是图片，则通过判断文件后缀来显示不同的图标
 				var extension = getFileExt(tempFile.name);
@@ -407,9 +410,9 @@
 					if ( data.code == 0 ) {
 						o.selectedList.push(data.message);   //添加文件到上传文件列表
 						o.uploadSuccessNum++;
-						$("#img-comtainer-"+ node.index).find(".file-opt-box").remove();
-						$("#img-comtainer-"+ node.index).find(".progress").remove();
-						$("#img-comtainer-"+ node.index).find(".success").show();
+						$("#img-comtainer-"+dialogSCode+ node.index).find(".file-opt-box").remove();
+						$("#img-comtainer-"+dialogSCode+ node.index).find(".progress").remove();
+						$("#img-comtainer-"+dialogSCode+ node.index).find(".success").show();
 					} else {
 						__error__(codeMessageMap[data.code], node);
 					}
@@ -454,7 +457,7 @@
 		// progress handler(文件上传进度控制)
 		function updateProgress(e, node) {
 			if ( e.lengthComputable ) {
-				$("#img-comtainer-"+ node.index).find(".progress span").css({"width" : (e.loaded/e.total)*100+'%', "display":"block"});
+				$("#img-comtainer-"+dialogSCode+ node.index).find(".progress span").css({"width" : (e.loaded/e.total)*100+'%', "display":"block"});
 			}
 		}
 
@@ -499,7 +502,7 @@
 
 		//获取文件后缀名
 		function getFileExt(filename) {
-
+			if ( !filename ) return false;
 			var position = filename.lastIndexOf('.')
 			if ( position != -1 ) {
 				return filename.substr(position+1).toLowerCase();
@@ -522,7 +525,7 @@
 
 		//显示上传错误信息
 		function __error__(message, node) {
-			G("#img-comtainer-"+ node.index).find(".error").show().text(message);
+			G("#img-comtainer-"+dialogSCode+ node.index).find(".error").show().text(message);
 		}
 
 		//query

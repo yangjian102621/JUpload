@@ -1,11 +1,5 @@
-* {
-	padding: 0; margin: 0;
-	box-sizing : inherit;
-	-webkit-box-sizing: inherit;
-	-moz-box-sizing: inherit;
-}
 $dialogWidth:652px;
-$dialogZindex:2000;
+$dialogZindex:999999;
 $fontsize:14px;
 .uedbody{
 	div, dl, dt, dd, ul, li,ol, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, textarea, blockquote,p{margin:0; padding:0;}
@@ -23,6 +17,13 @@ $fontsize:14px;
 	box-sizing : content-box !important;
 	-webkit-box-sizing: content-box !important;
 	-moz-box-sizing: content-box !important;
+
+	* {
+		padding: 0; margin: 0;
+		box-sizing : content-box !important;
+		-webkit-box-sizing: content-box !important;
+		-moz-box-sizing: content-box !important;
+	}
 
 	.clearfix:before, .clearfix:after {
 		content: "";

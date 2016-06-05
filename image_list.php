@@ -24,6 +24,7 @@ if ( $handler != false ) {
             if ( $i > $offset + 15 ) break;
         }
     }
+    closedir($handler);
 }
 $code = empty($files) ? 1 : 0;
 echo json_encode(array("code" => $code, "data" => $files));

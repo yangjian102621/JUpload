@@ -42,6 +42,32 @@
 			});
 		}
 
+		$.fn.draggable = function(options) {
+			var defaults = {
+				handler : null
+			}
+			options = $.extend(defaults, options);
+			var __self = this;
+			var handler = options.handler;
+			if ( !handler ) handler = this;
+			$(handler).mousedown(function(e) {
+				var offsetLeft = e.pageX - $(__self).position().left;
+				var offsetTop = e.pageY - $(__self).position().top;
+				$(document).mousemove(function(e) {
+					//清除拖动鼠标的时候选择文本
+					window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+					$(__self).css({
+						'top'  : e.pageY-offsetTop + 'px',
+						'left' : e.pageX-offsetLeft + 'px'
+					});
+				});
+
+			}).mouseup(function() {
+				$(document).unbind('mousemove');
+			});
+
+		}
+
 		//default options(默认选项)
 		var defaults = {
 			src : "src",
@@ -51,13 +77,15 @@
 			maxFileNum : 20, //最多上传文件的个数
 			extAllow : "jpg|png|gif|jpeg",
 			extRefuse : "exe|txt",
+			zIndex : 9999,
+			top : 50,
 			callback : function(imageList) {},
 			onSuccess : function(e) {},
 			onError : function(e) {},
 			onLoadStart : function(e) {},
 			onComplete : function() {
 				//hide add file button（隐藏添加文件按钮）
-				$("#addmore-box").hide();
+				G(".addmore-box").hide();
 				//console.log("文件上传完毕。");
 			}
 
@@ -76,33 +104,36 @@
 		var toUploadList = new Array();   //等待上传的文件列表
 		var currentUploadIndex = 0;  //当前上正在上传的文件的索引
 		var uploadSuccessList = new Array(); //上传成功的文件列表
+		var $dialog = null;
+		var dialogSCode = Math.ceil(Math.random() * 1000000000000); //对话框的令牌，如果创建多个BUpload上传对象用来保持唯一性
 
 		//create frame elements(创建框架元素)
 		function createElements() {
 			var frameElements =
-				'<div class="jupload-container" id="jupload-container">'
-				+ '		<div class="jupload-panel" id="jupload-panel">'
-				+ '         <div class="image-list-box" id="image-list-box">'
+				'<div class="tupload-container">'
+				+ '		<div class="tupload-panel">'
+				+ '         <div class="image-list-box">'
 				+ '         </div>'
 				+ '     </div>'
-				+ '     <div class="jupload-btn-box" id="jupload-btn-box">'
+				+ '     <div class="tupload-btn-box">'
 				+ '         <button class="btn-upload"></button>'
 				+ '         <button class="btn-add-file"></button>'
 				+ '     </div>'
-				+ '     <span class="jupload-close"></span>'
+				+ '     <span class="tupload-close"></span>'
 				+ '</div>';
-
-			$('body').append(frameElements);
+			$dialog = $(frameElements);
+			$dialog.draggable();
+			$('body').append($dialog);
 
 			//append initialize upload button(初始化开始上传按钮)
-			var initUploadBtn = $('<div class="init-add-file-btn" id="init-add-file-btn"></div>');
-			var uploadInput = $('<input type="file" class="input-select-file" id="input-select-file" multiple="true">');
-			var addMoreImage = $('<div class="addmore-box" id="addmore-box"><span class="addmore-btn"></span></div>');
+			var initUploadBtn = $('<div class="init-add-file-btn"></div>');
+			var uploadInput = $('<input type="file" class="input-select-file" multiple="true">');
+			var addMoreImage = $('<div class="addmore-box"><span class="addmore-btn"></span></div>');
 			addMoreImage.on("click", function() {
-				$("#input-select-file").trigger("click");
+				G(".input-select-file").trigger("click");
 			});
 
-			$("#jupload-btn-box  .btn-add-file").on("click", function() {
+			G(".btn-add-file").on("click", function() {
 
 				if ( toUploadList.length > 0 ) {
 					alert("请先上传文件！");
@@ -111,17 +142,16 @@
 				if ( uploadSuccessList.length > 0 ) {
 					options.callback(uploadSuccessList);
 				}
-				$('#jupload-container').remove();
-				//console.log("close the window.");
+				closeDialog();
 			});
 
 			//关闭上传对话框
-			$("#jupload-container .jupload-close").on("click", function() {
-				$('#jupload-container').remove();
+			G(".tupload-close").on("click", function() {
+				closeDialog();
 			});
 
 			//bind start upload event(绑定开始上传事件)
-			$("#jupload-btn-box"+" .btn-upload").on("click", function() {
+			G(".btn-upload").on("click", function() {
 				if (toUploadList.length == 0 ) {
 					alert("请至少添加一个文件！");
 					return false;
@@ -132,28 +162,28 @@
 			uploadInput.on("change", function() {
 
 				//append add more image button(创建继续添加按钮)
-				if ( $("#image-list-box").find(".addmore-box").length == 0 ) {
-					$("#image-list-box").append(addMoreImage);
+				if ( G(".image-list-box").find(".addmore-box").length == 0 ) {
+					G(".image-list-box").append(addMoreImage);
 				} else {
 					addMoreImage.show();
 				}
 
 				//add files to the filelist, and create file icon(添加文件到待上传文件列表)
 				var list = uploadInput[0].files;
-				var addedNum = $("#jupload-container .img-container").length;   //已经添加的文件数目
+				var addedNum = G(".img-container").length;   //已经添加的文件数目
 				for ( var i = addedNum; i < addedNum+list.length; i++ ) {
 
 					if ( toUploadList.length >= options.maxFileNum ) {
 						alert("您本次最多上传"+options.maxFileNum+"个文件.");
 						break;
 					}
-					var image = $('<div class="img-container" id="img-comtainer-'+i+'">'
+					var image = $('<div class="img-container" id="img-comtainer-'+dialogSCode+i+'">'
 						+ '    <div class="image">'
 						+ '       <img src="'+window.URL.createObjectURL(list[i-addedNum])+'" border="0">'
 						+ '       <div class="mask">等待上传……</div>'
 						+ '     </div>'
 						+ '     <div class="file-info">'
-						+ '         <div class="tupload-progress"><span class="tupload-progress-bar" id="upload-progress-bar-'+i+'"></span></div>'
+						+ '         <div class="tupload-progress"><span class="tupload-progress-bar" id="upload-progress-bar-'+dialogSCode+i+'"></span></div>'
 						+ '         <div class="file-size">'+formatFileSize(list[i-addedNum].size)+'</div>'
 						+ '     </div>'
 						+ '     <span class="remove" index="'+i+'"></span>'
@@ -162,33 +192,31 @@
 
 					//bind ondelele event(绑定删除文件事件)
 					image.find(".remove").on("click", function() {
-
 						onDelete(this);
-
 					});
 					image.find("img").imageCrop(150, 150);
-					$("#jupload-container  #addmore-box").before(image);
+					G(".addmore-box").before(image);
 					toUploadList.push(list[i-addedNum]);
 				}
 
-				$("#init-add-file-btn").hide();
+				G(".init-add-file-btn").hide();
 			});
 
 			initUploadBtn.append(uploadInput);
-			$("#jupload-panel").append(initUploadBtn);
+			G(".tupload-panel").append(initUploadBtn);
 
 			//调整“选择文件”按钮位置
 			initUploadBtn.css({
-				top : ($("#jupload-panel").height() - initUploadBtn.height()) / 2 + "px",
-				left : ($("#jupload-panel").width() - initUploadBtn.width()) / 2 + "px"
+				top : (G(".tupload-panel").height() - initUploadBtn.height()) / 2 + "px",
+				left : (G(".tupload-panel").width() - initUploadBtn.width()) / 2 + "px"
 			});
 
 			//调整插件位置，使其居中显示
 			var scrollTop = window.document.body.scrollTop || window.document.documentElement.scrollTop;
-			var frameBox = $('#jupload-container');
-			frameBox.css({
-				top : scrollTop + 20 +'px',
-				left : ($(window).width() - frameBox.width()) / 2
+			$dialog.css({
+				top : scrollTop + options.top +'px',
+				zIndex : options.zIndex,
+				left : ($(window).width() - $dialog.width()) / 2
 			});
 
 		}
@@ -200,12 +228,12 @@
 			//remove file from the filelist that to be uploaded.(从待上传队列中删除文件)
 			var index = $(obj).attr("index");
 			toUploadList.splice(index, 1);
-			if ( $(".img-container").length == 0 ) {
-				$("#init-add-file-btn").show();
-				addMoreImage.hide();
+			if ( G(".img-container").length == 0 ) {
+				G(".init-add-file-btn").show();
+				G(".addmore-box").hide();
 			}
 			//图片重新编号
-			$("#image-list-box").find(".remove").each(function(index, element) {
+			G(".image-list-box").find(".remove").each(function(index, element) {
 				$(element).attr("index", index);
 			});
 			//console.log(toUploadList.length);
@@ -243,10 +271,10 @@
 					if ( data.code == 0 ) {
 						uploadSuccessList.push(data.message);   //添加文件到上传文件列表
 						//$("#img-comtainer-"+ currentUploadIndex).find("img").attr("src", data.message);
-						$("#img-comtainer-"+ currentUploadIndex).find(".remove").hide().next().show();
-						$("#img-comtainer-"+ currentUploadIndex).find(".mask").hide();
+						$("#img-comtainer-"+ dialogSCode + currentUploadIndex).find(".remove").hide().next().show();
+						$("#img-comtainer-"+ dialogSCode + currentUploadIndex).find(".mask").hide();
 					} else {
-						$("#img-comtainer-"+ currentUploadIndex).find(".mask").html(codeMessageMap[data.code]).addClass("error");
+						$("#img-comtainer-"+ dialogSCode + currentUploadIndex).find(".mask").html(codeMessageMap[data.code]).addClass("error");
 					}
 				}
 
@@ -316,7 +344,7 @@
 
 		//显示错误信息
 		function __error__(message) {
-			$("#img-comtainer-"+ currentUploadIndex).find(".mask").html(message).addClass("error");
+			G("#img-comtainer-"+ dialogSCode+ currentUploadIndex).find(".mask").html(message).addClass("error");
 		}
 
 		//upload next file(上传下一个文件)
@@ -338,8 +366,17 @@
 		function updateProgress(e) {
 			//console.log(currentUploadIndex);
 			if ( e.lengthComputable ) {
-				$("#upload-progress-bar-"+ currentUploadIndex).css({"width" : (e.loaded/e.total)*100+'%'});
+				G("#upload-progress-bar-"+dialogSCode+ currentUploadIndex).css({"width" : (e.loaded/e.total)*100+'%'});
 			}
+		}
+
+		function G(selector) {
+			return $dialog.find(selector);
+		}
+		//关闭对话框
+		function closeDialog() {
+			$dialog.remove();
+			try {JDialog.lock.hide();} catch (e) {}
 		}
 
 		createElements();

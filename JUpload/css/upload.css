@@ -15,13 +15,6 @@ img {
   border: none;
   vertical-align: middle; }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: inherit;
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit; }
-
 /***************************** reset css end ***********************************/
 .clearfix:before, .clearfix:after {
   content: "";
