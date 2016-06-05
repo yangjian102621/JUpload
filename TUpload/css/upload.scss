@@ -1,13 +1,22 @@
+* {
+	padding: 0; margin: 0;
+	box-sizing : inherit;
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+}
 .jupload-container {
     width: 990px;
     padding:10px;
     background-color: #ffffff;
     border:2px solid #d1d1d1;
     border-radius: 6px;
+	line-height : 100%;
     position: absolute;
-    * {
-        margin: 0; padding: 0;
-    }
+	font-size: 14px;
+
+	box-sizing : content-box !important;
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
 
     .jupload-panel {
         height: 350px;
@@ -42,8 +51,8 @@
                         top:0;
                         background: #F1F1F1;
                         opacity: 0.8;
-                        width: 110px;
-                        height: 110px;
+                        width: 100%;
+                        height: 130px;
                         padding: 10px 30px 10px 10px;
                         font-size: 12px;
                         text-align: left;
@@ -62,12 +71,12 @@
 		            width: 100%;
 		            background-color: #ffffff;
 
-		            .progress {
+		            .tupload-progress {
 			            text-align: left;
 			            padding: 0px;
 			            margin: 0px;
 
-			            .progress-bar {
+			            .tupload-progress-bar {
 				            background-color: #00a0e9;
 				            display: block;
 				            width: 0;

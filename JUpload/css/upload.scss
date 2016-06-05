@@ -4,6 +4,12 @@ li{list-style-type:none;}
 ol,ul,dl{list-style:none;}
 em{font-style:normal;}
 img{border:none;vertical-align:middle;}
+* {
+	padding: 0; margin: 0;
+	box-sizing : inherit;
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+}
 /***************************** reset css end ***********************************/
 
 .clearfix:before, .clearfix:after {
@@ -30,6 +36,7 @@ img{border:none;vertical-align:middle;}
 	padding: 2px;
 	margin: 3px;
 	border: 1px solid #cccccc;
+	background-color: #ffffff;
 
 	.img-container {
 		zoom: 1; overflow: hidden;

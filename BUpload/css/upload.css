@@ -1,5 +1,15 @@
 @charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit; }
+
 .uedbody {
+  box-sizing: content-box !important;
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
   width: 652px;
   position: absolute;
   padding: 2px 0px 0px 2px;

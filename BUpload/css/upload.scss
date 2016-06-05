@@ -1,3 +1,9 @@
+* {
+	padding: 0; margin: 0;
+	box-sizing : inherit;
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+}
 $dialogWidth:652px;
 $dialogZindex:2000;
 $fontsize:14px;
@@ -13,6 +19,10 @@ $fontsize:14px;
 	table { border-collapse: collapse; border-spacing: 0; empty-cell:show;}
 	a{text-decoration:none;color:#333;outline:none; cursor:pointer;}
 	a:hover{cursor:pointer;blr:expression(this.onFocus=this.blur());}
+
+	box-sizing : content-box !important;
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
 
 	.clearfix:before, .clearfix:after {
 		content: "";
