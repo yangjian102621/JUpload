@@ -15,3 +15,62 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
 -------
 * jQuery-1.7.1以上版本
 
+使用demo
+------
+####BUpload
+```javascript
+	$("#upload-btn").on("click", function() {
+
+		new BUpload({
+			upload_url : "upload.php",
+			list_url : "image_list.php",	//图片列表数据获取url
+			search_url : "image_search.php",	//图片搜索页面url
+			max_filesize : 1024,
+			max_filenum : 10,
+			callback : function(data) {
+				$.each(data, function(idx, item) {
+					$("#image-box").append('<img src="'+item+'" width="200" />');
+				});
+				console.log(data);
+			}
+		});
+
+	});
+```
+
+####TUpload
+```javascript
+	$("#upload-btn").on("click", function() {
+
+		new TUpload({
+				uploadUrl : "upload.php",
+				maxFileSize : 1024,
+				maxFileNum : 20,
+				callback : function(data) {
+					$.each(data, function(idx, item) {
+						$("#image-box").append('<img src="'+item+'" width="200" />');
+					});
+					console.log(data);
+				}
+			});
+
+	});
+```
+
+####JUpload
+```javascript
+
+    $("#upload-btn").JUpload({
+		url : "upload.php",
+		src : "src",
+		image_container : "image-box"
+	});
+
+	$("#upload-btn2").JUpload({
+		url : "upload.php",
+		src : "src",
+		callback : function(data) {
+			$("#img-src").val(data.message);
+		}
+	});
+```
