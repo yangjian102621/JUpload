@@ -357,7 +357,8 @@
 					var index = $(this).attr("index");
 					for ( var i = 0; i < o.todoList.length; i++ ) {
 						if ( o.todoList[i].index == index ) {
-							updateInfoText(o.uploadSuccessNum + o.todoList.length, o.totalFilesize - o.todoList[i].file.size);
+							o.totalFilesize -= o.todoList[i].file.size;
+							updateInfoText(o.uploadSuccessNum + o.todoList.length-1, o.totalFilesize);
 							o.todoList.splice(i, 1);
 							break;
 						}
@@ -463,6 +464,7 @@
 
 		//update file info text
 		function updateInfoText(filenum, filesize) {
+
 			G(".info").text("共选择了 "+filenum+" 张图片，共 "+formatFileSize(filesize)+"," +
 				" 还可以添加 "+(options.max_filenum - filenum)+" 张图片.");
 		}
