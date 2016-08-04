@@ -1,6 +1,6 @@
 /**
  * 百度web编辑器UI的HTML5上传插件
- *
+ * url : https://git.oschina.net/blackfox/ajaxUpload
  * @author yangjian<yangjian102621@gmail.com>
  * @version 1.0.1
  * @since 2016.05.24
