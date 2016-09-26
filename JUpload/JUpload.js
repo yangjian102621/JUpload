@@ -52,13 +52,26 @@
 		var options = $.extend({
 			src : "src",
 			url : null,
-			callback : null,
+			onSuccess : function(data) { //上传一张图片成功回调
+				console.log(data);
+			},
+			onRemove : function(data) { //删除一张图片回调
+				console.log(data);
+			}, //删除一张图片回调
 			image_container : null,
+			max_filenum : 5, //最多上传图片数量
+			datas : [], //初始化已上传图片
 			twidth : 113,
 			theight : 113
 		}, __options);
-		var __self = this;
 		var images = []; //已经上传的图片列表
+		if ( options.datas.length > 0 ) {
+			//添加图片
+			for ( var i = 0; i < options.datas.length; i++ ) {
+				addImage(options.datas[i]);
+			}
+			images = options.datas;
+		}
 		var frameName = "iframe_"+Math.random();
 		var $form = $('<form action="'+options.url+'" target="'+frameName+'" enctype="multipart/form-data" method="post"></form>');
 		var $input = $('<input type="file" name="'+options.src+'" class="upload-input" />');
@@ -69,6 +82,10 @@
 		});
 		//绑定上传事件
 		$input.on("change", function() {
+			if ( images.length >= options.max_filenum ) {
+				alert("您最多允许上传"+options.max_filenum+"张图片。");
+				return false;
+			}
 			$form[0].submit();
 		});
 		$iframe.on("load", function() {
@@ -76,11 +93,17 @@
 			if ( !html ) return false;
 			try {
 				var data = $.parseJSON(html);
-				if ( typeof options.callback == "function" ) {
-					options.callback(data);
-				} else if ( options.image_container != null ) {
-					addImage(data);
+				if ( data.code == "000" ) {
+					if ( options.image_container != null ) {
+						addImage(data.message);
+					} else {
+						options.success(data.message)
+					}
+
+				} else {
+					alert(data.message);
 				}
+
 			} catch (e) {
 				console.log(e);
 			}
@@ -93,11 +116,10 @@
 		}
 
 		//添加图片
-		function addImage(data) {
-			if ( data.code != "0" ) return;
+		function addImage(src) {
 			var builder = new StringBuilder();
 			builder.append('<div class="img-wrapper"><div class="img-container" style="width: '+options.twidth+'px; height: '+options.theight+'px">');
-			builder.append('<img src="'+data.message+'">');
+			builder.append('<img src="'+src+'">');
 			builder.append('<div class="file-opt-box clearfix"><span class="remove">删除</span></div></div></div>');
 			var $image = $(builder.toString());
 			$("#"+options.image_container).append($image);
@@ -113,12 +135,12 @@
 					var src = $(this).parent().prev().attr("src");
 					images.remove(src);
 					$image.remove();
-					$(__self).attr("data-src", images.join(","));
+					options.onRemove(images);
 				} catch (e) {console.log(e);}
 			});
 
-			images.push(data.message);
-			$(__self).attr("data-src", images.join(","));
+			images.push(src);
+			options.onSuccess(images);
 		}
 
 	}
