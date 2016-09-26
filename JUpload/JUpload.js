@@ -53,13 +53,13 @@
 			src : "src",
 			url : null,
 			onSuccess : function(data) { //上传一张图片成功回调
-				console.log(data);
+				//console.log(data);
 			},
 			onRemove : function(data) { //删除一张图片回调
-				console.log(data);
+				//console.log(data);
 			}, //删除一张图片回调
 			image_container : null,
-			max_filenum : 5, //最多上传图片数量
+			max_filenum : 0, //最多上传图片数量
 			datas : [], //初始化已上传图片
 			twidth : 113,
 			theight : 113
@@ -82,7 +82,7 @@
 		});
 		//绑定上传事件
 		$input.on("change", function() {
-			if ( images.length >= options.max_filenum ) {
+			if ( options.max_filenum > 0 && images.length >= options.max_filenum ) {
 				alert("您最多允许上传"+options.max_filenum+"张图片。");
 				return false;
 			}
