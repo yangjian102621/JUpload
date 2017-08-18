@@ -47,6 +47,12 @@
 			});
 		}
 	}
+
+	// 加载 css 文件
+	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/JUpload.css"
+	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
+
 	//单个上传文件
 	$.fn.JUpload = function(__options) {
 		var options = $.extend({
@@ -97,7 +103,7 @@
 					if ( options.image_container != null ) {
 						addImage(data.message);
 					} else {
-						options.success(data.message)
+						options.onSuccess(data.message)
 					}
 
 				} else {
