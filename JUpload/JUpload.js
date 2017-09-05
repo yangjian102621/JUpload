@@ -1,5 +1,5 @@
 /**
- * 基于iframe实现的异步上传插件
+ * 基于html5 和 iframe实现的异步上传插件
  * https://git.oschina.net/blackfox/ajaxUpload
  * @author yangjian<yangjian102621@gmail.com>
  * @version 1.0.0
@@ -58,25 +58,43 @@
 		var options = $.extend({
 			src : "src",
 			url : null,
+			maxFileSize : 2, //最大文件：2M
+			onStart : function () {  //开始上传
+
+			},
+			onComplete : function () { //完成上传
+
+			},
 			onSuccess : function(data) { //上传一张图片成功回调
 				//console.log(data);
+			},
+			onError : function () { //出错时回调
+
 			},
 			onRemove : function(data) { //删除一张图片回调
 				//console.log(data);
 			}, //删除一张图片回调
+			messageHandler : function (message) {
+				alert(message);
+			},
 			image_container : null,
-			max_filenum : 0, //最多上传图片数量
+			maxFileNum : 5, //最多上传文件的个数
+			extAllow : "jpg|png|gif|jpeg",
+			extRefuse : "exe|txt",
 			datas : [], //初始化已上传图片
+			method : "html5", //上传方式，可选 html5, iframe
 			twidth : 113,
 			theight : 113
 		}, __options);
 		var images = []; //已经上传的图片列表
+		var hasUoloaded = 0; //已上传图片数
 		if ( options.datas.length > 0 ) {
 			//添加图片
 			for ( var i = 0; i < options.datas.length; i++ ) {
 				addImage(options.datas[i]);
 			}
 			images = options.datas;
+			hasUoloaded = images.length;
 		}
 		var frameName = "iframe_"+Math.random();
 		var $form = $('<form action="'+options.url+'" target="'+frameName+'" enctype="multipart/form-data" method="post"></form>');
@@ -86,34 +104,60 @@
 		$(this).on("click", function() {
 			$input.trigger("click");
 		});
-		//绑定上传事件
-		$input.on("change", function() {
-			if ( options.max_filenum > 0 && images.length >= options.max_filenum ) {
-				alert("您最多允许上传"+options.max_filenum+"张图片。");
-				return false;
-			}
-			$form[0].submit();
-		});
-		$iframe.on("load", function() {
-			var html = this.contentWindow.document.getElementsByTagName("body")[0].innerHTML;
-			if ( !html ) return false;
-			try {
-				var data = $.parseJSON(html);
-				if ( data.code == "000" ) {
-					if ( options.image_container != null ) {
-						addImage(data.message);
-					} else {
-						options.onSuccess(data.message)
-					}
-
-				} else {
-					alert(data.message);
+		if (options.method == "html5") {
+			$input.on("change",  function () {
+				if ( options.maxFileNum > 0 && hasUoloaded >= options.maxFileNum ) {
+					__error__("您最多允许上传"+options.maxFileNum+"张图片。");
+					return false;
 				}
+				options.onStart();
+				setTimeout(function () {
+					uploadFile($input[0].files[0]);
+				}, 200);
+			});
+		}
 
-			} catch (e) {
-				console.log(e);
-			}
-		});
+		//通过iframe上传
+		if (options.method == "iframe") {
+			$input.on("change", function() {
+				if ($input.val() == "") {
+					__error__("请选择文件.");
+					return false;
+				}
+				if ( options.maxFileNum > 0 && hasUoloaded >= options.maxFileNum ) {
+					__error__("您最多允许上传"+options.maxFileNum+"张图片。");
+					return false;
+				}
+				options.onStart();
+				setTimeout(function() {
+					$form[0].submit();
+				}, 200);
+			});
+			$iframe.on("load", function() {
+				try {
+					var html = this.contentWindow.document.getElementsByTagName("pre")[0].innerHTML;
+					if ( !html ) return false;
+					var data = $.parseJSON(html);
+					if ( data.code == "000" ) {
+						if ( options.image_container != null ) {
+							addImage(data.item);
+						}
+						hasUoloaded++;
+						options.onSuccess(data.item);
+						//清空input已选文件
+						$input.val("");
+
+					} else {
+						alert(data.message);
+					}
+					options.onComplete();
+
+				} catch (e) {
+					//console.log(e);
+				}
+			});
+		}
+
 		$form.append($input);
 		$('body').append($form);
 		$('body').append($iframe);
@@ -142,14 +186,105 @@
 					images.remove(src);
 					$image.remove();
 					options.onRemove(images);
+					hasUoloaded--;
 				} catch (e) {console.log(e);}
 			});
 
 			images.push(src);
-			options.onSuccess(images);
 		}
 
+		//upload file function(文件上传主函数), 使用 Html5 上传
+		function uploadFile(file) {
+
+			if ( !fileCheckHandler(file) ) {
+				return;
+			}
+			// prepare XMLHttpRequest
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', options.url);
+			//upload successfully
+			xhr.addEventListener('load',function(e) {
+
+				var data = $.parseJSON(e.target.responseText);
+				if ( data.code == "000" ) {
+					if ( options.image_container != null ) {
+						addImage(data.item);
+					}
+					hasUoloaded++;
+					options.onSuccess(data.item);
+				} else {
+					__error__("上传失败");
+					options.onError();
+				}
+
+				options.onSuccess(e);
+
+			}, false);
+
+			// file upload complete
+			xhr.addEventListener('loadend', function () {
+				options.onComplete();
+			}, false);
+
+			xhr.addEventListener('error', function(e) {
+				//log errors here
+			}, false);
+
+			xhr.upload.addEventListener('progress', function(e) {
+				//set progress
+			}, false);
+
+			xhr.upload.addEventListener('loadstart', function(e) {
+
+			}, false);
+
+			// prepare FormData
+			var formData = new FormData();
+			formData.append(options.src, file);
+			xhr.send(formData);
+
+		}
+
+		//file check handler(文件检测处理函数)
+		function fileCheckHandler(file) {
+
+			//检查文件大小
+			var maxsize = options.maxFileSize * 1024 * 1024;
+			if ( maxsize > 0 && file.size > maxsize ) {
+				__error__("文件大小不能超过 "+options.maxFileSize + "MB");
+				options.onError();
+				return false;
+			}
+
+			//检查文件后缀名
+			var ext = getFileExt(file.name);
+			if ( ext && options.extAllow.indexOf(ext) != -1
+				&& options.extRefuse.indexOf(ext) == -1 ) {
+				return true;
+			} else {
+				__error__("非法的文件后缀 "+ext);
+				options.onError();
+				return false;
+			}
+
+		}
+
+		//获取文件后缀名
+		function getFileExt(filename) {
+
+			var position = filename.lastIndexOf('.')
+			if ( position != -1 ) {
+				return filename.substr(position+1).toLowerCase();
+			}
+			return false;
+		}
+
+		//显示错误信息
+		function __error__(message) {
+			options.messageHandler(message);
+		}
 	}
+
 
 	//string builder
 	var StringBuilder = function() {
@@ -162,5 +297,4 @@
 		}
 
 	}
-
 })(jQuery);
