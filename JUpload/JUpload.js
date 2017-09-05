@@ -1,5 +1,5 @@
 /**
- * 基于html5 和 iframe实现的异步上传插件
+ * 基于iframe实现的异步上传插件
  * https://git.oschina.net/blackfox/ajaxUpload
  * @author yangjian<yangjian102621@gmail.com>
  * @version 1.0.0
