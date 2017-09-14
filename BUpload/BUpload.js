@@ -363,7 +363,10 @@
 							break;
 						}
 					}
-
+					if (G(".filelist li").length == 0) {
+						G(".image-list-box").hide();
+						G(".wra_pla").show();
+					}
 				});
 				$image.on("mouseover", function() {
 					$(this).find(".file-opt-box").show();

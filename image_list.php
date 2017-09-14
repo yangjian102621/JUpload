@@ -4,6 +4,7 @@
  * @author yangjian<yangjian102621@gmail.com>
  */
 header("Content-Type:text/html; charset=UTF-8");
+sleep(1);
 $page = intval($_GET["page"]);
 $offset = ($page - 1) * 15;
 $image_dir = __DIR__."/files";
@@ -18,7 +19,9 @@ if ( $handler != false ) {
                 continue;
             }
             $size = getimagesize("files/".$filename);
-            array_push($files, array("thumbURL" => "files/".$filename, "oriURL" => "files/".$filename,
+            array_push($files, array("thumbURL" => dirname($_SERVER['PHP_SELF'])."/files/".$filename, "oriURL" =>
+                dirname($_SERVER['PHP_SELF'])."/files/"
+                .$filename,
                 "width" => intval($size[0]), "height" => intval($size[1])));
             $i++;
             if ( $i > $offset + 15 ) break;
