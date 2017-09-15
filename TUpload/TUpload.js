@@ -8,6 +8,11 @@
 
 (function($) {
 
+	// 加载 css 文件
+	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/tupload.css"
+	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
+
 	window.TUpload = function(options) {
 
 		//判断浏览器是否支持html5

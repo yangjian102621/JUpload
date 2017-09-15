@@ -6,7 +6,7 @@
 error_reporting(0);
 require "JsonResult.php";
 
-usleep(100000);
+usleep(500000);
 $page = intval($_GET["page"]);
 $offset = ($page - 1) * 15;
 $image_dir = dirname(__FILE__)."/files/";
@@ -14,9 +14,10 @@ $files = array();
 $handler = opendir($image_dir);
 if ( $handler != false ) {
     $i = 0;
-    while ( $filename = readdir($handler) ) {
+    while (($filename = readdir($handler)) != false) {
+
         if ( $filename != "." && $filename != ".." ) {
-            if ( $i <= $offset ) {
+            if ( $i < $offset ) {
                 $i++;
                 continue;
             }
@@ -27,11 +28,12 @@ if ( $handler != false ) {
                 "width" => intval($size[0]),
                 "height" => intval($size[1])));
             $i++;
-            if ( $i > $offset + 15 ) break;
+            if ( $i > ($offset + 15) ) break;
         }
     }
     closedir($handler);
 }
+
 $result = new JsonResult();
 if (!empty($files)) {
     $result->setCode(JsonResult::CODE_SUCCESS);

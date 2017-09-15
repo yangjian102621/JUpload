@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>图片上传demo</title>
+	<meta charset="utf-8" />
+</head>
+<body style="background: #424f63">
+
+<div style="padding:100px;">
+	<button id="bupload-btn" style="padding: 10px 20px;">多图上传（带文件管理+支持图片搜索）</button>
+	<div id="image-box-b">
+
+	</div>
+
+	<div style="padding-top: 20px;">
+		<button id="jbupload-btn" style="padding: 10px 20px;">单图上传</button>
+		<div id="image-box-j">
+	</div>
+
+	</div>
+
+	<div style="padding-top: 20px;">
+		<button id="tupload-btn" style="padding: 10px 20px;">多图上传(不带文件管理)</button>
+		<div id="image-box-t">
+	</div>
+
+	</div>
+</div>
+
+<script src="libs/jquery.min.js"></script>
+<script src="BUpload/BUpload.js"></script>
+<script src="JUpload/JUpload.js"></script>
+<script src="TUpload/TUpload.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$("#bupload-btn").on("click", function() {
+			new BUpload({
+				upload_url : "php/upload.php",
+				list_url : "php/image_list.php",	//图片列表数据获取url
+				search_url : "php/image_search.php",	//图片搜索页面url
+				grap_url : "php/image_grap.php", //搜索网络图片的抓取url
+				max_filesize : 1024,
+				max_filenum : 10,
+				callback : function(data) {
+					$.each(data, function(idx, item) {
+						$("#image-box-b").append('<img src="'+item+'" width="200" />');
+					});
+					console.log(data);
+				}
+			});
+
+		});
+
+		$('#tupload-btn').on('click', function() {
+			new TUpload({
+				uploadUrl : "php/upload.php",
+				maxFileSize : 1024,
+				maxFileNum : 20,
+				callback : function(data) {
+					$.each(data, function(idx, item) {
+						$("#image-box-t").append('<img src="'+item+'" width="200" />');
+					});
+					console.log(data);
+				}
+			});
+		});
+
+		$("#jbupload-btn").JUpload({
+			url : "php/upload.php",
+			src : "src",
+			datas : [],
+			image_container : "image-box-j"
+		});
+	});
+
+</script>
+
+</body>
+</html>
