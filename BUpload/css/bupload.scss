@@ -550,6 +550,14 @@ $fontsize:14px;
 				height: 346px;
 				top:0; left: 0;
 				display: none;
+
+				.loading-message {
+					position: absolute;
+					font-size: 14px;
+					color: #f0f0f0;
+					top: 210px;
+					left: 253px;
+				}
 			}
 
 			//图片占位符
@@ -572,6 +580,7 @@ $fontsize:14px;
 			.icon-idn {background-image: url("icons/idn.png");}
 			.icon-ini {background-image: url("icons/ini.png");}
 			.icon-java, .icon-jar, .icon-war {background-image: url("icons/java.png");}
+			.icon-htm, .icon-html5 {background-image: url("icons/htm.png");}
 			.icon-jsf {background-image: url("icons/jsf.png");}
 			.icon-md, .icon-markdown {background-image: url("icons/markdown.png");}
 			.icon-mdb {background-image: url("icons/mdb.png");}

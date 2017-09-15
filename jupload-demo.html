@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>基于iframe的文件异步上传</title>
-	<link rel="stylesheet" type="text/css" href="JUpload/css/upload.css" />
 </head>
 
 <body style="background: #424f63">
@@ -27,16 +26,16 @@
 	<script>
 
 		$("#upload-btn").JUpload({
-			url : "upload.php",
+			url : "php/upload.php",
 			src : "src",
-			datas : ["files/0716712763d6bcffa44f49d2ac9b9ca9.JPG", "files/8c3accbe036d404c314489d77c8fb5be.JPG"],
+			datas : [],
 			image_container : "image-box"
 		});
 
 		$("#upload-btn2").JUpload({
-			url : "upload.php",
+			url : "php/upload.php",
 			src : "src",
-			success : function(data) {
+			onSuccess : function(data) {
 				$("#img-src").val(data);
 			}
 		});

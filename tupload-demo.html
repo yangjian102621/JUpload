@@ -7,7 +7,7 @@
 	<!-- select2 -->
 	<link rel="stylesheet" type="text/css" href="http://www.herosphp.my/res/framework/css/select2.css" />
 	<!-- common css-->
-	<link rel="stylesheet" type="text/css" href="TUpload/css/upload.css" />
+	<link rel="stylesheet" type="text/css" href="TUpload/css/tupload.css" />
 </head>
 
 <body style="background: #424f63">
@@ -26,7 +26,7 @@
 
 		$('#upload-btn').on('click', function() {
 			new TUpload({
-				uploadUrl : "upload.php",
+				uploadUrl : "php/upload.php",
 				maxFileSize : 1024,
 				maxFileNum : 20,
 				callback : function(data) {

@@ -8,9 +8,10 @@
 (function($) {
 
 	//判断浏览器是否支持html5
-	if ( !window.applicationCache )
-		throw new Error("您当前的浏览器不支持HTML5,请先升级浏览器才能使用该上传插件!");
-
+	if ( !window.applicationCache ) {
+		alert("您当前的浏览器不支持HTML5,请先升级浏览器才能使用该上传插件!");
+		return;
+	}
 	//image crop
 	$.fn.imageCrop = function(__width, __height) {
 		$(this).on("load", function () {
@@ -88,12 +89,18 @@
 		}
 	}
 
+	// 加载 css 文件
+	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/bupload.css"
+	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
+
 	window.BUpload = function(options) {
 
 		options = $.extend({
 			src : "src",
 			upload_url : null,
 			list_url : null,
+			grap_url : null,
 			search_url : null,
 			data_type : "json",
 			top : 50,
@@ -109,10 +116,10 @@
 
 		//错误代码和提示消息
 		var codeMessageMap = {
-			'0' : '文件上传成功',
-			'1' : '文件上传失败',
-			'2' : '文件大小超出限制',
-			'3' : '非法文件名后缀'
+			'000' : '文件上传成功',
+			'001' : '文件上传失败',
+			'002' : '文件大小超出限制',
+			'003' : '非法文件名后缀'
 		};
 
 		var mimeType = {
@@ -170,7 +177,8 @@
 		o.dialog = null;
 		o.todoList = new Array(); //the file queue to be uploaded
 		o.uploadSuccessNum = 0; //已经上传成功的图片数量
-		o.selectedList = new Array(); //the file queue upload successfully
+		o.selectedList = []; //the file queue upload successfully
+		o.searchList = []; //搜索选中的要被抓取的图片队列
 		o.addedFileNumber = 0; //the numbers of files that has added
 		o.totalFilesize = 0; //total file size
 		o.uploadLock = false; //upload thread lock
@@ -270,8 +278,44 @@
 					alert("您还有文件没有上传!");
 					return false;
 				}
-				options.callback(o.selectedList);
-				o.close();
+				if (o.selectedList.length == 0) {
+					o.close();
+					return false;
+				}
+				//console.log(o.selectedList);
+				if (options.grap_url == null) {
+					alert("抓取网络图片失败，请设置抓取图片的后端地址.");
+					o.close();
+					return;
+				}
+				//抓取网络图片，并更新图片链接
+				if (o.searchList.length > 0) {
+					var $message = $('<span class="loading-message">正在抓取网络图片……</span>')
+					G(".loading-icon").show().html($message); //显示加载图标
+					$.get(options.grap_url, {
+						act : "grapImage",
+						urls : encodeURI(o.searchList.join(","))
+					}, function (res) {
+						if (res.code != "000") {
+							options.errorHandler(res.message, "error");
+						} else {
+							//删除之前的 url
+							$.each(o.searchList, function(idx, item) {
+								o.selectedList.remove(item);
+							});
+							//更新成新的 url
+							$.each(res.items, function(idx, item) {
+								o.selectedList.push(item);
+							});
+							options.callback(o.selectedList);
+							o.close();
+						}
+						G(".loading-icon").hide().empty();
+					}, "json");
+				} else {
+					options.callback(o.selectedList);
+					o.close();
+				}
 			});
 			G(".btn-cancel").on("click", function() {
 				o.close();
@@ -411,8 +455,8 @@
 				if ( options.data_type == "json" ) {
 					//console.log(e);
 					var data = $.parseJSON(e.target.responseText);
-					if ( data.code == 0 ) {
-						o.selectedList.push(data.message);   //添加文件到上传文件列表
+					if ( data.code == "000" ) {
+						o.selectedList.push(data.item);   //添加文件到上传文件列表
 						o.uploadSuccessNum++;
 						$("#img-comtainer-"+dialogSCode+ node.index).find(".file-opt-box").remove();
 						$("#img-comtainer-"+dialogSCode+ node.index).find(".progress").remove();
@@ -552,9 +596,9 @@
 			}, function(res) {
 
 				G(".loading-icon").hide(); //隐藏加载图标
-				if ( res.code == "0" ) {
+				if ( res.code == "000" ) {
 					o.page++;
-					appendFiles(res.data, "online");
+					appendFiles(res.items, "online");
 				} else {
 					G(".online .no-data").text(options.no_data_text).show();
 					o.noRecord = true;
@@ -577,10 +621,10 @@
 			}, function(res) {
 
 				G(".loading-icon").hide(); //隐藏加载图标
-				if ( res.code == "0" ) {
+				if ( res.code == "000" ) {
 					G(".searchbox .no-data").hide();
 					o.searchPage++;
-					appendFiles(res.data, "search");
+					appendFiles(res.items, "search");
 				} else {
 					G(".no-data").text(options.no_data_text).show();
 				}
@@ -604,18 +648,25 @@
 					builder.append('<img src="'+item.thumbURL+'" data-src="'+item.oriURL+'" border="0">');
 				}
 
-				builder.append('<span class="ic"><em class="img-size">'+item.width+'x'+item.height+'</em></span></li>');
+				builder.append('<span class="ic" data-module="'+module+'"><em class="img-size">'+item.width+'x'+item.height+'</em></span></li>');
 				var $image = $(builder.toString());
 
 				//绑定选择图片事件
 				$image.find(".ic").on("click", function() {
-					var src = $(this).prev().attr("data-src");
+					var src = $(this).prev().data("src");
+					var module = $(this).data("module");
 					if ( $(this).hasClass("selected") ) {
 						$(this).removeClass("selected");
 						o.selectedList.remove(src);
+						if (module == "search") {
+							o.searchList.remove(src);
+						}
 					} else {
 						$(this).addClass("selected");
 						o.selectedList.push(src);
+						if (module == "search") {
+							o.searchList.push(src);
+						}
 					}
 					//console.log(o.selectedList);
 				});

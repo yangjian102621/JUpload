@@ -15,6 +15,10 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
 -------
 * jQuery-1.7.1以上版本
 
+在线预览
+========
+### 在线演示: http://www.r9it.com/demo/ajaxupload/
+
 使用demo
 ------
 ####BUpload

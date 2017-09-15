@@ -436,6 +436,12 @@
         top: 0;
         left: 0;
         display: none; }
+        .uedbody .wrapper .wra_body .loading-icon .loading-message {
+          position: absolute;
+          font-size: 14px;
+          color: #f0f0f0;
+          top: 210px;
+          left: 253px; }
       .uedbody .wrapper .wra_body .icon-placeholder {
         background-size: 113px 113px;
         display: block;
@@ -467,6 +473,8 @@
         background-image: url("icons/ini.png"); }
       .uedbody .wrapper .wra_body .icon-java, .uedbody .wrapper .wra_body .icon-jar, .uedbody .wrapper .wra_body .icon-war {
         background-image: url("icons/java.png"); }
+      .uedbody .wrapper .wra_body .icon-htm, .uedbody .wrapper .wra_body .icon-html5 {
+        background-image: url("icons/htm.png"); }
       .uedbody .wrapper .wra_body .icon-jsf {
         background-image: url("icons/jsf.png"); }
       .uedbody .wrapper .wra_body .icon-md, .uedbody .wrapper .wra_body .icon-markdown {
@@ -523,4 +531,4 @@
     text-align: right;
     padding: 10px 20px 20px 0px; }
 
-/*# sourceMappingURL=upload.css.map */
+/*# sourceMappingURL=bupload.css.map */

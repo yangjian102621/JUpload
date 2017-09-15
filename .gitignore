@@ -1,4 +1,6 @@
-/files
+php/files
+php/tmp
+php/cache.tmp
 /node_modules
 /dist
 .sass-cache

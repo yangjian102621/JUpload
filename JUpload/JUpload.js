@@ -7,6 +7,10 @@
  */
 (function($) {
 
+	var html5Support = true;
+	if ( !window.applicationCache ) {
+		html5Support = false;
+	}
 	if ( Array.prototype.remove == undefined ) {
 		Array.prototype.remove = function(item) {
 			for ( var i = 0; i < this.length; i++ ) {
@@ -50,7 +54,7 @@
 
 	// 加载 css 文件
 	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
-	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/JUpload.css"
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/jupload.css"
 	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
 
 	//单个上传文件
@@ -82,7 +86,6 @@
 			extAllow : "jpg|png|gif|jpeg",
 			extRefuse : "exe|txt",
 			datas : [], //初始化已上传图片
-			method : "html5", //上传方式，可选 html5, iframe
 			twidth : 113,
 			theight : 113
 		}, __options);
@@ -104,7 +107,8 @@
 		$(this).on("click", function() {
 			$input.trigger("click");
 		});
-		if (options.method == "html5") {
+		if (html5Support) { //html5 上传
+
 			$input.on("change",  function () {
 				if ( options.maxFileNum > 0 && hasUoloaded >= options.maxFileNum ) {
 					__error__("您最多允许上传"+options.maxFileNum+"张图片。");
@@ -115,10 +119,9 @@
 					uploadFile($input[0].files[0]);
 				}, 200);
 			});
-		}
 
-		//通过iframe上传
-		if (options.method == "iframe") {
+		} else { //通过iframe上传
+
 			$input.on("change", function() {
 				if ($input.val() == "") {
 					__error__("请选择文件.");
@@ -174,11 +177,6 @@
 			var $image = $(builder.toString());
 			$("#"+options.image_container).append($image);
 			$image.find("img").imageCrop(options.twidth, options.theight);
-			//$image.hover(function() {     //这里的hover效果已经通过css实现了
-			//	$(this).find(".file-opt-box").show();
-			//}, function() {
-			//	$(this).find(".file-opt-box").hide();
-			//});
 			//删除图片
 			$image.find(".remove").on("click", function() {
 				try {
@@ -216,8 +214,6 @@
 					__error__("上传失败");
 					options.onError();
 				}
-
-				options.onSuccess(e);
 
 			}, false);
 

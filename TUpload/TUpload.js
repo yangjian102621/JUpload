@@ -11,8 +11,10 @@
 	window.TUpload = function(options) {
 
 		//判断浏览器是否支持html5
-		if ( !window.applicationCache )
-			throw new Error("Your browser version is too low, do not support html5, can not be used AjaxUpload upload the plugin, please upgrade your browser!");
+		if ( !window.applicationCache ) {
+			alert("您当前的浏览器不支持HTML5,请先升级浏览器才能使用该上传插件!");
+			return;
+		}
 
 		$.fn.imageCrop = function(__width, __height) {
 			$(this).on("load", function () {
@@ -93,10 +95,10 @@
 
 		//错误代码和提示消息
 		var codeMessageMap = {
-			'0' : '文件上传成功',
-			'1' : '文件上传失败',
-			'2' : '文件大小超出限制',
-			'3' : '非法文件名后缀'
+			'000' : '文件上传成功',
+			'001' : '文件上传失败',
+			'002' : '文件大小超出限制',
+			'003' : '非法文件名后缀'
 		}
 
 		options = $.extend(defaults, options);
@@ -268,8 +270,8 @@
 				if ( options.dataType == "json" ) {
 					//console.log(e);
 					var data = $.parseJSON(e.target.responseText);
-					if ( data.code == 0 ) {
-						uploadSuccessList.push(data.message);   //添加文件到上传文件列表
+					if ( data.code == "000" ) {
+						uploadSuccessList.push(data.item);   //添加文件到上传文件列表
 						//$("#img-comtainer-"+ currentUploadIndex).find("img").attr("src", data.message);
 						$("#img-comtainer-"+ dialogSCode + currentUploadIndex).find(".remove").hide().next().show();
 						$("#img-comtainer-"+ dialogSCode + currentUploadIndex).find(".mask").hide();
@@ -278,7 +280,7 @@
 					}
 				}
 
-				options.onSuccess(e);
+				options.onSuccess(data.item);
 
 			}, false);
 
