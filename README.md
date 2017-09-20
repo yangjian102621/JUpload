@@ -19,62 +19,20 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
 ========
 ### 在线演示: http://d.r9it.com/ajaxupload/
 
-使用demo
-------
-####BUpload
-```javascript
-	$("#upload-btn").on("click", function() {
+版本更新记录
+======
+### v1.3.1
+* 修复 BUpload 组件的文件管理默认文件后缀名的不显示图标的bug
 
-		new BUpload({
-			upload_url : "upload.php",
-			list_url : "image_list.php",	//图片列表数据获取url
-			search_url : "image_search.php",	//图片搜索页面url
-			max_filesize : 1024,
-			max_filenum : 10,
-			callback : function(data) {
-				$.each(data, function(idx, item) {
-					$("#image-box").append('<img src="'+item+'" width="200" />');
-				});
-				console.log(data);
-			}
-		});
+### v1.3.0
+* 修复BUpload组件，管理 API 的分页第一条数据获取不到的bug
+* 分别给 JUpload, TUpload, BUpload 三个组件实现css的自动加载功能，不需要再手动引入css
+* 修复了BUpload 删除全部添加图片的时候不显示添加按钮的bug
+* JUpload 新增html5 上传支持，自动判断浏览器是否支持 H5, 如果支持自动使用 H5 API 上传，不支持就使用 iframe 上传 
+* 新增了一些回调接口，onStart, onCompleted 
+* 重构上传的后端php文件，使用统一的 JsonResult 数据结构返回
 
-	});
-```
-
-####TUpload
-```javascript
-	$("#upload-btn").on("click", function() {
-
-		new TUpload({
-				uploadUrl : "upload.php",
-				maxFileSize : 1024,
-				maxFileNum : 20,
-				callback : function(data) {
-					$.each(data, function(idx, item) {
-						$("#image-box").append('<img src="'+item+'" width="200" />');
-					});
-					console.log(data);
-				}
-			});
-
-	});
-```
-
-####JUpload
-```javascript
-
-    $("#upload-btn").JUpload({
-		url : "upload.php",
-		src : "src",
-		image_container : "image-box"
-	});
-
-	$("#upload-btn2").JUpload({
-		url : "upload.php",
-		src : "src",
-		callback : function(data) {
-			$("#img-src").val(data.message);
-		}
-	});
-```
+### v1.2.0
+* 把项目拆分成三个 JUpload， TUpload， BUpload 三个组件，分别实现三种不同风格的文件上传 UI
+* 修复BUpload的文件信息统计错误的bug
+* 修复css兼容性问题
