@@ -643,7 +643,7 @@
 				if ( extension == '' ) extension = "default";
 				extension = extension.toLowerCase();
 				if ( "jpg|jpeg|gif|png|bmp".indexOf(extension) == -1 ) {
-					builder.append('<span class="icon-placeholder icon-'+extension+'" data-src="'+item.oriURL+'"></span>');
+					builder.append('<span class="icon-placeholder icon-placeholder icon-'+extension+'" data-src="'+item.oriURL+'"></span>');
 				} else {
 					builder.append('<img src="'+item.thumbURL+'" data-src="'+item.oriURL+'" border="0">');
 				}
