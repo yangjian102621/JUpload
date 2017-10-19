@@ -55,7 +55,7 @@
 				//清除拖动鼠标的时候选择文本
 				window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
 				$(__self).css({
-					'top'  : e.pageY-offsetTop + 'px',
+					'top'  : e.pageY-offsetTop +'px',
 					'left' : e.pageX-offsetLeft + 'px'
 				});
 			});
@@ -103,7 +103,7 @@
 			grap_url : null,
 			search_url : null,
 			data_type : "json",
-			top : 50,
+			top : 0,
 			max_filesize : 2048,    //unit:KB
 			max_filenum : 20,
 			no_data_text : "(⊙o⊙)亲，没有多数据了。",
@@ -221,9 +221,15 @@
 
 			o.dialog = $(builder.toString());
 			$("body").append(o.dialog);
+            var top, scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+            if (options.top == 0) {
+                top = ($(window).height() - o.dialog.height()) / 2 + scrollTop;
+            } else {
+                top = options.top + scrollTop;
+            }
 			o.dialog.css({
 				left : ($(window).width() - o.dialog.width())/2 + "px",
-				top : options.top + "px"
+				top : top + "px"
 			});
 			//给对话框添加拖拽事件
 			o.dialog.draggable({handler : o.dialog.find(".ued_title")})
