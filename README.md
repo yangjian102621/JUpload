@@ -23,6 +23,9 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
 ======
 ### v1.3.1
 * 修复 BUpload 组件的文件管理默认文件后缀名的不显示图标的bug
+* 删除 TUpload 组件，其功能和使用方法基本跟 BUpload 重复，只是UI不一样，这样导致需要维护两份代码，
+所以就索性就移除它了，精简项目。
+* 更新了 demo 和 API 介绍文档
 
 ### v1.3.0
 * 修复BUpload组件，管理 API 的分页第一条数据获取不到的bug

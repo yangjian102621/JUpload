@@ -3,6 +3,22 @@
 <head>
 	<title>图片上传demo</title>
 	<meta charset="utf-8" />
+
+	<style>
+		#image-box-b {
+			overflow: hidden;
+			zoom: 1;
+		}
+		.img-box {
+			float: left;
+			position: relative;
+			width: 150px;
+			height: 150px;
+			zoom: 1;
+			overflow: hidden;
+			margin: 5px;
+		}
+	</style>
 </head>
 <body style="background: #424f63">
 
@@ -19,51 +35,36 @@
 
 	</div>
 
-	<div style="padding-top: 20px;">
-		<button id="tupload-btn" style="padding: 10px 20px;">多图上传(不带文件管理)</button>
-		<div id="image-box-t">
-	</div>
-
 	</div>
 </div>
 
 <script src="libs/jquery.min.js"></script>
 <script src="BUpload/BUpload.js"></script>
 <script src="JUpload/JUpload.js"></script>
-<script src="TUpload/TUpload.js"></script>
 <script>
 
 	$(document).ready(function() {
 		$("#bupload-btn").on("click", function() {
 			new BUpload({
-				upload_url : "php/upload.php",
-				list_url : "php/image_list.php",	//图片列表数据获取url
-				search_url : "php/image_search.php",	//图片搜索页面url
-				grap_url : "php/image_grap.php", //搜索网络图片的抓取url
+				src:'imgFile',
+				upload_url : "php/default/upload_json.php",
+				list_url : "php/default/file_manager_json.php",	//图片列表数据获取url
+				search_url : "php/default/image_search_json.php",	//图片搜索页面url
+				grap_url : "php/default/image_grap_json.php", //搜索网络图片的抓取url
 				max_filesize : 1024,
 				max_filenum : 10,
 				callback : function(data) {
+
 					$.each(data, function(idx, item) {
-						$("#image-box-b").append('<img src="'+item+'" width="200" />');
+						$("#image-box-b").append('<span class="img-box"><img src="'+item+'" /></span>');
+					});
+					$('#image-box-b').find("img").each(function(idx, ele) {
+						$(ele).imageCrop(150, 150);
 					});
 					console.log(data);
 				}
 			});
 
-		});
-
-		$('#tupload-btn').on('click', function() {
-			new TUpload({
-				uploadUrl : "php/upload.php",
-				maxFileSize : 1024,
-				maxFileNum : 20,
-				callback : function(data) {
-					$.each(data, function(idx, item) {
-						$("#image-box-t").append('<img src="'+item+'" width="200" />');
-					});
-					console.log(data);
-				}
-			});
 		});
 
 		$("#jbupload-btn").JUpload({
