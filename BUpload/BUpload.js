@@ -183,6 +183,7 @@
 		o.totalFilesize = 0; //total file size
 		o.uploadLock = false; //upload thread lock
 		o.page = 1; //服务器图片列表页码
+		o.marker = null, //七牛云上传的分页标识
 		o.searchPage = 1; //图片搜索页码
 		o.searchText = null; //搜索文字
 		o.noRecord = false;
@@ -598,17 +599,25 @@
 
 			G(".loading-icon").show(); //显示加载图标
 			$.get(options.list_url, {
-				page : o.page
+				page : o.page,
+				marker : o.marker,
 			}, function(res) {
 
 				G(".loading-icon").hide(); //隐藏加载图标
 				if ( res.code == "000" ) {
+
+					if (!res.items[0]) { //没有加载到数据
+						G(".online .no-data").text(options.no_data_text).show();
+						return;
+					}
+					o.marker = res.item; //存储marker
 					o.page++;
 					appendFiles(res.items, "online");
 				} else {
 					G(".online .no-data").text(options.no_data_text).show();
 					o.noRecord = true;
 				}
+
 
 			}, "json");
 		}

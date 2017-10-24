@@ -172,7 +172,7 @@
 		function addImage(src) {
 			var builder = new StringBuilder();
 			builder.append('<div class="img-wrapper"><div class="img-container" style="width: '+options.twidth+'px; height: '+options.theight+'px">');
-			builder.append('<img src="'+src+'">');
+			builder.append('<img src="'+src+'" data-src="'+src+'">');
 			builder.append('<div class="file-opt-box clearfix"><span class="remove">删除</span></div></div></div>');
 			var $image = $(builder.toString());
 			$("#"+options.image_container).append($image);

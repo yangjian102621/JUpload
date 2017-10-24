@@ -23,7 +23,9 @@
 <body style="background: #424f63">
 
 <div style="padding:100px;">
-	<button id="bupload-btn" style="padding: 10px 20px;">多图上传（带文件管理+支持图片搜索）</button>
+	<button id="bupload-btn" style="padding: 10px 20px;">多图上传（本地上传）</button>
+	<button id="bupload-btn1" style="padding: 10px 20px;">多图上传（七牛云上传）</button>
+
 	<div id="image-box-b">
 
 	</div>
@@ -39,6 +41,7 @@
 </div>
 
 <script src="libs/jquery.min.js"></script>
+<script src="libs/jpreview.js"></script>
 <script src="BUpload/BUpload.js"></script>
 <script src="JUpload/JUpload.js"></script>
 <script>
@@ -56,11 +59,36 @@
 				callback : function(data) {
 
 					$.each(data, function(idx, item) {
-						$("#image-box-b").append('<span class="img-box"><img src="'+item+'" /></span>');
+						$("#image-box-b").append('<span class="img-box"><img src="'+item+'" data-src="'+item+'" /></span>');
 					});
 					$('#image-box-b').find("img").each(function(idx, ele) {
 						$(ele).imageCrop(150, 150);
 					});
+					$('#image-box-b').find("img").jpreview();
+					console.log(data);
+				}
+			});
+
+		});
+
+		$("#bupload-btn1").on("click", function() {
+			new BUpload({
+				src:'imgFile',
+				upload_url : "php/qiniu/upload_json.php",
+				list_url : "php/qiniu/file_manager_json.php",	//图片列表数据获取url
+				search_url : "php/qiniu/image_search_json.php",	//图片搜索页面url
+				grap_url : "php/qiniu/image_grap_json.php", //搜索网络图片的抓取url
+				max_filesize : 1024,
+				max_filenum : 10,
+				callback : function(data) {
+
+					$.each(data, function(idx, item) {
+						$("#image-box-b").append('<span class="img-box"><img src="'+item+'" data-src="'+item+'" /></span>');
+					});
+					$('#image-box-b').find("img").each(function(idx, ele) {
+						$(ele).imageCrop(150, 150);
+					});
+					$('#image-box-b').find("img").jpreview();
 					console.log(data);
 				}
 			});
@@ -68,10 +96,13 @@
 		});
 
 		$("#jbupload-btn").JUpload({
-			url : "php/upload.php",
-			src : "src",
+			url : "php/default/upload_json.php",
+			src : "imgFile",
 			datas : [],
-			image_container : "image-box-j"
+			image_container : "image-box-j",
+			onSuccess : function (url) {
+				$("#image-box-j").find("img").jpreview();
+			}
 		});
 	});
 
