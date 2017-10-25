@@ -18,8 +18,8 @@ $tmp_dir = BASE_PATH . "tmp/";
 $dist_dir = BASE_PATH . $fileType. "/" . UPLOAD_PREFIX;
 
 // 创建目录
-file_exists($tmp_dir) || mkdir($tmp_dir);
-file_exists($dist_dir) || mkdir($dist_dir);
+file_exists($tmp_dir) || mkdirs($tmp_dir);
+file_exists($dist_dir) || mkdirs($dist_dir);
 
 $act = trim($_GET['act']);
 if ($act == "grapImage") { //抓取图片

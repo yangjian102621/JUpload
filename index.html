@@ -98,12 +98,20 @@
 		$("#jbupload-btn").JUpload({
 			url : "php/default/upload_json.php",
 			src : "imgFile",
-			datas : [],
+			datas : [
+				'http://ovsekfapp.bkt.clouddn.com/image-15089178398221.jpg',
+				'http://ovsekfapp.bkt.clouddn.com/image-15089178396084.jpg',
+				'http://ovsekfapp.bkt.clouddn.com/image-15089178403045.jpg',
+				'http://ovsekfapp.bkt.clouddn.com/image-15089178408275.jpg',
+				'http://ovsekfapp.bkt.clouddn.com/image-15089178425421.jpg'
+			],
 			image_container : "image-box-j",
 			onSuccess : function (url) {
 				$("#image-box-j").find("img").jpreview();
 			}
 		});
+
+		$("#image-box-j").find("img").jpreview();
 	});
 
 </script>
