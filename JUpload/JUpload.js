@@ -6,10 +6,9 @@
  * @since 2016.06.02
  */
 (function($) {
-
-	var html5Support = true;
-	if ( !window.applicationCache ) {
-		html5Support = false;
+	var html5Support = false;
+	if ( typeof(Worker) !== "undefined" ) {
+		html5Support = true;
 	}
 	if ( Array.prototype.remove == undefined ) {
 		Array.prototype.remove = function(item) {
@@ -54,7 +53,7 @@
 
 	// 加载 css 文件
 	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
-	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/jupload.css"
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"jupload.min.css"
 	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
 
 	//单个上传文件
@@ -140,18 +139,18 @@
 				try {
 					var html = this.contentWindow.document.getElementsByTagName("pre")[0].innerHTML;
 					if ( !html ) return false;
-					var data = $.parseJSON(html);
-					if ( data.code == "000" ) {
+					var res = $.parseJSON(html);
+					if ( res.code == "000" ) {
 						if ( options.image_container != null ) {
-							addImage(data.item);
+							addImage(res.data.url);
 						}
 						hasUoloaded++;
-						options.onSuccess(data.item);
+						options.onSuccess(res.data);
 						//清空input已选文件
 						$input.val("");
 
 					} else {
-						alert(data.message);
+						__error__(res.message);
 					}
 					options.onComplete();
 
@@ -185,6 +184,8 @@
 					$image.remove();
 					options.onRemove(images);
 					hasUoloaded--;
+					//清空input已选文件
+					$input.val("");
 				} catch (e) {console.log(e);}
 			});
 
@@ -203,13 +204,13 @@
 			//upload successfully
 			xhr.addEventListener('load',function(e) {
 
-				var data = $.parseJSON(e.target.responseText);
-				if ( data.code == "000" ) {
+				var res = $.parseJSON(e.target.responseText);
+				if ( res.code == "000" ) {
 					if ( options.image_container != null ) {
-						addImage(data.item);
+						addImage(res.data.url);
 					}
 					hasUoloaded++;
-					options.onSuccess(data.item);
+					options.onSuccess(res.data);
 				} else {
 					__error__("上传失败");
 					options.onError();
