@@ -63,7 +63,7 @@ img {
         background: url("icons.png") no-repeat;
         margin: 5px 1px 1px;
         cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -75,4 +75,4 @@ img {
     .img-wrapper .img-container:hover .file-opt-box {
       display: block; }
 
-/*# sourceMappingURL=upload.css.map */
+/*# sourceMappingURL=jupload.css.map */

@@ -53,7 +53,7 @@
 
 	// 加载 css 文件
 	var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
-	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"jupload.min.css"
+	var cssPath = jsPath.substring(0, jsPath.lastIndexOf("/") + 1)+"css/jupload.css"
 	$("head:eq(0)").append('<link href="'+cssPath+'" rel="stylesheet" type="text/css" />');
 
 	//单个上传文件

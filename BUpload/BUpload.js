@@ -8,8 +8,8 @@
 (function($) {
 
 	//判断浏览器是否支持html5
-	if ( !window.applicationCache ) {
-		alert("您当前的浏览器不支持HTML5,请先升级浏览器才能使用该上传插件!");
+	if ( typeof FormData == "undefined" ) {
+		alert("您当前的浏览器不支持HTML5上传,请先升级浏览器才能使用该上传插件!");
 		return;
 	}
 	//image crop
@@ -205,19 +205,14 @@
 			if ( options.list_url != null ) {
 				builder.append('<span class="tab tab-online" tab="online">文件服务器</span>');
 			}
-			if ( options.search_url != null ) {
-				builder.append('<span class="tab tab-search" tab="searchbox">图片搜索</span>');
-			}
+
 			builder.append('</div><div class="wra_body"><div class="tab-panel upload-panel"><div class="wra_pla"><div class="upload-image-placeholder">');
 			builder.append('<div class="btn btn-primary image-select">点击选择图片</div><input type="file" name="'+options.src+'" class="webuploader-element-invisible"' +
 				' multiple="multiple" accept="'+getAccept()+'">');
 			builder.append('</div></div><div class="image-list-box" style="display: none;"><div class="wra_bar"><div class="info fl"></div>');
 			builder.append('<div class="fr"><span class="btn btn-default btn-continue-add">继续添加</span><span class="btn btn-primary btn-start-upload">开始上传</span></div></div>');
 			builder.append('<ul class="filelist"></ul></div></div><div class="tab-panel online"><div class="imagelist"><ul class="list clearfix"></ul><div class="no-data"></div></div></div>');
-			builder.append('<div class="tab-panel searchbox"><div class="search-bar"><input class="searTxt" type="text" placeholder="请输入搜索关键词" />');
-			builder.append('<input value="搜索一下" class="btn btn-primary btn-search" type="button" /><input value="清空搜索" class="btn btn-default btn-reset" type="button" />');
-			builder.append('</div><div class="search-imagelist-box"><ul class="search-list"></ul><div class="no-data"></div></div>');
-			builder.append('</div><div class="loading-icon"></div></div><!-- end of wrapper --></div><div class="wra-btn-group"><span class="btn btn-primary btn-confirm">确认</span>');
+			builder.append('<div class="loading-icon"></div></div><!-- end of wrapper --></div><div class="wra-btn-group"><span class="btn btn-primary btn-confirm">确认</span>');
 			builder.append('<span class="btn btn-default btn-cancel">取消</span></div></div>');
 
 			o.dialog = $(builder.toString());
@@ -353,7 +348,7 @@
 			});
 
 			//图片搜索事件
-			G(".btn-search").on("click", function() {
+			G(".btn-search").on("click", function() nullasdsadasdsa{
 				var text = G(".searTxt").val().trim();
 				if ( text == "" ) {
 					G(".searchbox .no-data").html('<span class="error">请输入搜索关键字.</span>').show();
