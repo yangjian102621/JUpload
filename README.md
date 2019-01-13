@@ -9,6 +9,10 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload.
 * BUpload : 基于HTML5， UI仿百度编辑器的图片上传, 支持图片上传，浏览图片，支持图片预览，有进度条
 * JUpload : 基于iframe的异步上传。
 
+# 部署和构建
+1. npm install -g grunt-cli， 如果已经安装了就跳过这一步
+2. 切换到 uploader 根目录，执行 npm install
+3. 打包 : 执行 grunt zip，相关文件都会被打包到 dist 文件夹下名为 uploader-{version}.zip 的压缩包中
 
 插件依赖:
 -------
