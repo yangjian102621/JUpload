@@ -5,9 +5,8 @@ AjaxUpload
 
 插件描述:
 --------
-javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
-* BUpload : 基于HTML5， UI仿百度编辑器的图片上传, 支持图片上传，浏览图片，和图片搜索，支持图片预览，有进度条
-* TUpload : 基于HTML5， UI仿腾讯的QQ空间上传图片，支持图片预览，有进度条。
+javascript异步上传插件，包含3个子项目BUpload, JUpload.
+* BUpload : 基于HTML5， UI仿百度编辑器的图片上传, 支持图片上传，浏览图片，支持图片预览，有进度条
 * JUpload : 基于iframe的异步上传。
 
 
@@ -21,6 +20,14 @@ javascript异步上传插件，包含3个子项目BUpload, JUpload, TUpload.
 
 版本更新记录
 ======
+
+### v1.3.2
+* 移除 BUpload 的图片搜索功能
+* 修改七牛上传的域名配置信息
+* 修复判断浏览器是否支持 HTML5 的 bug
+* 将七牛上传 SDK 升级到 7.2.6
+* 更改打包工具为 grunt, 优化代码打包和压缩功能
+
 ### v1.3.1
 * 修复 BUpload 组件的文件管理默认文件后缀名的不显示图标的bug
 * 删除 TUpload 组件，其功能和使用方法基本跟 BUpload 重复，只是UI不一样，这样导致需要维护两份代码，

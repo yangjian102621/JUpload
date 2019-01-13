@@ -54,7 +54,7 @@ img{border:none;vertical-align:middle;}
 				float: right;
 				text-indent: -9999px;
 				overflow: hidden;
-				background: url("icons.png") no-repeat;
+				background: url("images/icons.png") no-repeat;
 				margin: 5px 1px 1px;
 				cursor: pointer;
 				-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -78,4 +78,14 @@ img{border:none;vertical-align:middle;}
 			}
 		}
 	}
+}
+.add-img {
+  float: left;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  color: #999999;
+  margin-top: 2px;
+  cursor: pointer;
+  background: #FFFFFF url("images/add-image.png") no-repeat center;
 }

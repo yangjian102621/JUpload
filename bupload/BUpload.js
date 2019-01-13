@@ -237,6 +237,7 @@
 
 			//选项卡事件
 			G(".tab").on("click", function() {
+				G(".loading-icon").hide(); //隐藏加载图标
 				var tab = $(this).attr("tab");
 				G(".tab-panel").hide();
 				G("."+tab).show();
@@ -338,31 +339,6 @@
 				if ( this.scrollTop + this.clientHeight >= this.scrollHeight ) {
 					loadFilesFromServer();
 				}
-			});
-
-			G(".search-imagelist-box").on("scroll", function() {
-
-				if ( this.scrollTop + this.clientHeight >= this.scrollHeight ) {
-					imageSearch();
-				}
-			});
-
-			//图片搜索事件
-			G(".btn-search").on("click", function() nullasdsadasdsa{
-				var text = G(".searTxt").val().trim();
-				if ( text == "" ) {
-					G(".searchbox .no-data").html('<span class="error">请输入搜索关键字.</span>').show();
-					G(".searTxt").focus();
-					return false;
-				}
-				o.searchText = text;
-				o.searchPage = 1;
-				G(".search-imagelist-box").find(".search-list").empty();
-				imageSearch();
-			});
-			//重置搜索
-			G(".btn-reset").on("click", function() {
-				G(".searTxt").val("");
 			});
 		}
 
@@ -613,31 +589,6 @@
 					o.noRecord = true;
 				}
 
-
-			}, "json");
-		}
-
-		//图片搜索
-		function imageSearch() {
-			if ( options.search_url == null ) {
-				G(".searchbox .no-data").html('<span class="error">无法进行图片搜索，请先配置 search_url.</span>').show();
-				return false;
-			}
-
-			G(".loading-icon").show(); //显示加载图标
-			$.get(options.search_url, {
-				page : o.searchPage,
-				kw : o.searchText
-			}, function(res) {
-
-				G(".loading-icon").hide(); //隐藏加载图标
-				if ( res.code == "000" ) {
-					G(".searchbox .no-data").hide();
-					o.searchPage++;
-					appendFiles(res.items, "search");
-				} else {
-					G(".no-data").text(options.no_data_text).show();
-				}
 
 			}, "json");
 		}

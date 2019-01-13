@@ -7,7 +7,7 @@
  */
 (function($) {
 	var html5Support = false;
-	if ( typeof(Worker) !== "undefined" ) {
+	if ( typeof(FormData) !== "undefined" ) {
 		html5Support = true;
 	}
 	if ( Array.prototype.remove == undefined ) {

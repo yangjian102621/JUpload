@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 
 	<style>
-		#image-box-b {
+		#image-box-b,#image-box-j {
 			overflow: hidden;
 			zoom: 1;
 		}
@@ -26,24 +26,21 @@
 	<button id="bupload-btn" style="padding: 10px 20px;">多图上传（本地上传）</button>
 	<button id="bupload-btn1" style="padding: 10px 20px;">多图上传（七牛云上传）</button>
 
-	<div id="image-box-b">
-
-	</div>
+	<div id="image-box-b"></div>
 
 	<div style="padding-top: 20px;">
-		<button id="jbupload-btn" style="padding: 10px 20px;">单图上传</button>
+
 		<div id="image-box-j">
+			<a id="jbupload-btn" class="add-img" title="添加图片"></a>
+		</div>
 	</div>
 
-	</div>
-
-	</div>
 </div>
 
 <script src="libs/jquery.min.js"></script>
 <script src="libs/jpreview.js"></script>
-<script src="BUpload/BUpload.js"></script>
-<script src="JUpload/JUpload.js"></script>
+<script src="bupload/BUpload.js"></script>
+<script src="jupload/JUpload.js"></script>
 <script>
 
 	$(document).ready(function() {

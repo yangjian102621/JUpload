@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a7b03ff3d70648d44cdbcbc8e6a40e0",
+    "content-hash": "20de36a5171e6c085dbf552a1157167d",
     "packages": [
         {
             "name": "qiniu/php-sdk",
-            "version": "v7.2.1",
+            "version": "v7.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qiniu/php-sdk.git",
-                "reference": "8c7ba738bd4443ee3569a07441913b07c4b2c4a2"
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/qiniu/php-sdk/8c7ba738bd4443ee3569a07441913b07c4b2c4a2.zip",
-                "reference": "8c7ba738bd4443ee3569a07441913b07c4b2c4a2",
+                "url": "https://api.github.com/repos/qiniu/php-sdk/zipball/305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                 "sdk",
                 "storage"
             ],
-            "time": "2017-08-26T00:46:11+00:00"
+            "time": "2018-05-18T04:37:29+00:00"
         }
     ],
     "packages-dev": [],

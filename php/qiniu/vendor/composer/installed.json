@@ -1,17 +1,17 @@
 [
     {
         "name": "qiniu/php-sdk",
-        "version": "v7.2.1",
-        "version_normalized": "7.2.1.0",
+        "version": "v7.2.6",
+        "version_normalized": "7.2.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/qiniu/php-sdk.git",
-            "reference": "8c7ba738bd4443ee3569a07441913b07c4b2c4a2"
+            "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/qiniu/php-sdk/8c7ba738bd4443ee3569a07441913b07c4b2c4a2.zip",
-            "reference": "8c7ba738bd4443ee3569a07441913b07c4b2c4a2",
+            "url": "https://api.github.com/repos/qiniu/php-sdk/zipball/305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+            "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d",
             "shasum": ""
         },
         "require": {
@@ -21,9 +21,9 @@
             "phpunit/phpunit": "~4.0",
             "squizlabs/php_codesniffer": "~2.3"
         },
-        "time": "2017-08-26T00:46:11+00:00",
+        "time": "2018-05-18T04:37:29+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Qiniu\\": "src/Qiniu"
