@@ -286,36 +286,8 @@
 					return false;
 				}
 				//console.log(o.selectedList);
-				if (options.grap_url == null) {
-					alert("抓取网络图片失败，请设置抓取图片的后端地址.");
-					o.close();
-					return;
-				}
-				//抓取网络图片，并更新图片链接
-				if (o.searchList.length > 0) {
-					var $message = $('<span class="loading-message">正在抓取网络图片……</span>')
-					G(".loading-icon").show().html($message); //显示加载图标
-					$.get(options.grap_url, {
-						act : "grapImage",
-						urls : encodeURI(o.searchList.join(","))
-					}, function (res) {
-						if (res.code != "000") {
-							options.errorHandler(res.message, "error");
-						} else {
-							//删除之前的 url
-							$.each(o.searchList, function(idx, item) {
-								o.selectedList.remove(item);
-							});
-							//更新成新的 url
-							$.each(res.items, function(idx, item) {
-								o.selectedList.push(item);
-							});
-							options.callback(o.selectedList);
-							o.close();
-						}
-						G(".loading-icon").hide().empty();
-					}, "json");
-				} else {
+
+				if (o.selectedList.length > 0) {
 					options.callback(o.selectedList);
 					o.close();
 				}
@@ -432,9 +404,9 @@
 
 				if ( options.data_type == "json" ) {
 					//console.log(e);
-					var data = $.parseJSON(e.target.responseText);
-					if ( data.code == "000" ) {
-						o.selectedList.push(data.item);   //添加文件到上传文件列表
+					var res = $.parseJSON(e.target.responseText);
+					if ( res.code == "000" ) {
+						o.selectedList.push(res.data.url);   //添加文件到上传文件列表
 						o.uploadSuccessNum++;
 						$("#img-comtainer-"+dialogSCode+ node.index).find(".file-opt-box").remove();
 						$("#img-comtainer-"+dialogSCode+ node.index).find(".progress").remove();
@@ -577,13 +549,13 @@
 				G(".loading-icon").hide(); //隐藏加载图标
 				if ( res.code == "000" ) {
 
-					if (!res.items[0]) { //没有加载到数据
+					if (!res.data[0]) { //没有加载到数据
 						G(".online .no-data").text(options.no_data_text).show();
 						return;
 					}
-					o.marker = res.item; //存储marker
+					o.marker = res.extra; //存储marker
 					o.page++;
-					appendFiles(res.items, "online");
+					appendFiles(res.data, "online");
 				} else {
 					G(".online .no-data").text(options.no_data_text).show();
 					o.noRecord = true;
@@ -635,8 +607,6 @@
 				$image.find("img").imageCrop(113, 113);
 				if ( module == "online" ) {
 					G(".imagelist .list").append($image);
-				} else if ( module == "search" ) {
-					G(".search-imagelist-box .search-list").append($image);
 				}
 			});
 

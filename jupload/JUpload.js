@@ -81,7 +81,7 @@
 				alert(message);
 			},
 			image_container : null,
-			maxFileNum : 5, //最多上传文件的个数
+			maxFileNum : 10, //最多上传文件的个数
 			extAllow : "jpg|png|gif|jpeg",
 			extRefuse : "exe|txt",
 			datas : [], //初始化已上传图片

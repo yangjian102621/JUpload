@@ -12,16 +12,10 @@ class JsonResult {
     const CODE_FAIL = "001";
 
     /**
-     * 单个数据
+     * 数据
      * @var mixed
      */
-    private $item;
-
-    /**
-     * 数据列表
-     * @var array
-     */
-    private $items;
+    private $data;
 
     /**
      * 列表数据条数
@@ -152,33 +146,17 @@ class JsonResult {
     /**
      * @return mixed
      */
-    public function getItem()
+    public function getData()
     {
-        return $this->item;
+        return $this->data;
     }
 
     /**
-     * @param mixed $item
+     * @param mixed $data
      */
-    public function setItem($item)
+    public function setData($data)
     {
-        $this->item = $item;
-    }
-
-    /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @param array $items
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
+        $this->data = $data;
     }
 
     /**
@@ -268,8 +246,7 @@ class JsonResult {
             'page'=>$this->getPage(),
             'pagesize'=>$this->getPagesize(),
             'extra'=>$this->getExtra(),
-            'item'=>$this->getItem(),
-            'items'=>$this->getItems()), JSON_UNESCAPED_UNICODE);
+            'data'=>$this->getData()), JSON_UNESCAPED_UNICODE);
     }
 
     /**
